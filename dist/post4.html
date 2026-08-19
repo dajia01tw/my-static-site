@@ -262,7 +262,7 @@
 <h2>Step 1：建立專案資料夾</h2>
 <p>在你的電腦桌面新增一個資料夾，命名為 my-markdown-site，然後用 VS Code 打開它。</p>
 <h2>Step 2：建立 index.html</h2>
-<p>在資料夾中新增 index.html</p>
+<p>在資料夾中新增 index.html。</p>
 <h2>Step 3：寫 JavaScript 把 Markdown 轉成 HTML</h2>
 <p>在 <code>&lt;script&gt;</code> 標籤內（marked.js 的下面），加入以下程式碼：</p>
 <pre><code>// 1. 定義你的 Markdown 內容（先寫死，之後再從檔案讀取）
@@ -297,7 +297,7 @@ document.getElementById(&#39;content&#39;).innerHTML = htmlContent;
 <ul>
 <li>標題「📝 我的第一篇 Markdown 文章」</li>
 <li>下方顯示轉換後的內容：<ul>
-<li>「你好，世界！」（變成 <h1> 大標題）</li>
+<li>「你好，世界！」（變成 <code>&lt;h1&gt;</code> 大標題）</li>
 <li>一段普通文字</li>
 <li>一個有 3 個項目的清單</li>
 <li>一段引用文字（灰色區塊）</li>

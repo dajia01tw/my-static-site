@@ -9,13 +9,16 @@ author: Kai
 
 我們從最簡單的開始，目標是讓瀏覽器把 Markdown 文字變成漂亮的網頁標題。
 
+
 ## Step 1：建立專案資料夾
 
 在你的電腦桌面新增一個資料夾，命名為 my-markdown-site，然後用 VS Code 打開它。
 
+
 ## Step 2：建立 index.html
 
-在資料夾中新增 index.html
+在資料夾中新增 index.html。
+
 
 ## Step 3：寫 JavaScript 把 Markdown 轉成 HTML
 
@@ -42,6 +45,7 @@ const htmlContent = marked.parse(markdownContent);
 document.getElementById('content').innerHTML = htmlContent;
 ```
 
+
 ## Step 4：用 Live Server 打開網頁
 
 重要：不要直接雙擊 index.html 用瀏覽器打開（雖然現在還不會有問題，但之後讀取 .md 檔案時會遇到 CORS 錯誤）。
@@ -57,7 +61,7 @@ document.getElementById('content').innerHTML = htmlContent;
 你應該會看到：
 - 標題「📝 我的第一篇 Markdown 文章」
 - 下方顯示轉換後的內容：
-  - 「你好，世界！」（變成 <h1> 大標題）
+  - 「你好，世界！」（變成 `<h1>` 大標題）
   - 一段普通文字
   - 一個有 3 個項目的清單
   - 一段引用文字（灰色區塊）
