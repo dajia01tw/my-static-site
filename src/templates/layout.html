@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .post-list {
+            list-style: none;
+        }
+
+        .post-list li {
+            padding: 10px 12px;
+            margin-bottom: 4px;
+            border-radius: 6px;
+            color: #34495e;
+            font-size: 14px;
+            border-left: 3px solid transparent;
+        }
+
+        .post-list li.active {
+            border-left-color: #3498db;
+            background: #ebf5ff;
+        }
+
+        .post-list .post-meta {
+            display: block;
+            font-size: 11px;
+            color: #7f8c8d;
+            margin-top: 2px;
+        }
+
+        .post-list .post-tag {
+            display: inline-block;
+            font-size: 10px;
+            background: #ecf0f1;
+            color: #34495e;
+            padding: 1px 8px;
+            border-radius: 10px;
+            margin-right: 3px;
+        }
+
+        .post-list a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .post-list a:hover {
+            color: #3498db;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            min-height: 400px;
+        }
+
+        .main-content h1 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        .main-content h2 {
+            color: #34495e;
+            margin-top: 25px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .main-content p {
+            line-height: 1.8;
+            color: #2c3e50;
+            margin: 12px 0;
+        }
+
+        .main-content ul,
+        .main-content ol {
+            margin: 12px 0;
+            padding-left: 25px;
+            line-height: 1.8;
+        }
+
+        .main-content blockquote {
+            margin: 15px 0;
+            padding: 12px 20px;
+            border-left: 4px solid #3498db;
+            background: #f8faff;
+            color: #2c3e50;
+        }
+
+        .main-content pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .main-content code {
+            background: #f0f2f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .main-content pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        .main-content .post-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .main-content .post-header .post-date {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .main-content .post-header .post-tags {
+            margin-top: 10px;
+        }
+
+        .main-content .post-header .post-tags span {
+            display: inline-block;
+            background: #ebf5ff;
+            color: #3498db;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        .welcome {
+            text-align: center;
+            padding: 40px 0;
+            color: #7f8c8d;
+        }
+
+        .welcome h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+
+        <aside class="sidebar">
+          <h2>📚 文章列表</h2>
+    
+          <!-- 新增搜尋框 -->
+          <div style="margin-bottom: 15px;">
+            <input type="text" id="searchInput" placeholder="🔍 搜尋文章..." 
+               style="width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px;">
+          </div>
+    
+          <ul class="post-list" id="postList">
+            {{postList}}
+          </ul>
+        </aside>
+
+        <main class="main-content">
+            {{content}}
+        </main>
+    </div>
+</body>
+</html>

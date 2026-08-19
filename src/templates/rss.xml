@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>我的部落格</title>
+        <link>https://your-site.vercel.app</link>
+        <description>使用 Markdown 生成的靜態部落格</description>
+        <language>zh-tw</language>
+        <lastBuildDate>{{lastBuildDate}}</lastBuildDate>
+        <atom:link href="https://your-site.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
+        
+        {{items}}
+    </channel>
+</rss>
