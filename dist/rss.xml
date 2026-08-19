@@ -5,7 +5,7 @@
         <link>https://your-site.vercel.app</link>
         <description>使用 Markdown 生成的靜態部落格</description>
         <language>zh-tw</language>
-        <lastBuildDate>Wed, 19 Aug 2026 05:40:09 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 19 Aug 2026 12:16:31 GMT</lastBuildDate>
         <atom:link href="https://your-site.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
         
         
@@ -38,6 +38,18 @@
 <li>不需要資料庫</li>
 <li>載入速度飛快</li>
 <li>可以用任何編輯器寫作</li...]]></description>
+        </item>
+        
+        <item>
+            <title>Day 01 你的第一個 Markdown 轉 HTML 頁面</title>
+            <link>https://your-site.vercel.app/post4.html</link>
+            <guid>https://your-site.vercel.app/post4.html</guid>
+            <pubDate>Mon, 10 Aug 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[<h1>Day 01 你的第一個 Markdown 轉 HTML 頁面</h1>
+<p>我們從最簡單的開始，目標是讓瀏覽器把 Markdown 文字變成漂亮的網頁標題。</p>
+<h2>Step 1：建立專案資料夾</h2>
+<p>在你的電腦桌面新增一個資料夾，命名為 my-markdown-site，然後用 VS Code 打開它。</p>
+<h2>Step 2：建立 index.html</h...]]></description>
         </item>
         
         <item>

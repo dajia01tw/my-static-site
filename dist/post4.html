@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的部落格</title>
+    <title>Day 01 你的第一個 Markdown 轉 HTML 頁面</title>
     <style>
         * {
             margin: 0;
@@ -229,7 +229,7 @@
                 </a>
             </li>
         
-            <li class="">
+            <li class="active">
                 <a href="post4.html">
                     Day 01 你的第一個 Markdown 轉 HTML 頁面
                     <span class="post-meta">
@@ -247,41 +247,72 @@
                 </a>
             </li>
         
-        <script>
-            document.getElementById('searchInput').addEventListener('input', function() {
-                const query = this.value.toLowerCase();
-                const items = document.querySelectorAll('#postList li');
-                items.forEach(item => {
-                    const text = item.textContent.toLowerCase();
-                    item.style.display = text.includes(query) ? '' : 'none';
-                });
-            });
-        </script>
-        <div class="tag-cloud"><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#程式 (1)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#JavaScript (1)</span><span style="font-size: 20px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#生活 (2)</span><span style="font-size: 20px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#心得 (2)</span></div>
           </ul>
         </aside>
 
         <main class="main-content">
             
         <div class="post-header">
-            <h1>學習 JavaScript 的筆記</h1>
-            <div class="post-date">📅 2026-08-11 · ✍️ Alex</div>
-            <div class="post-tags"><span>#程式</span> <span>#JavaScript</span></div>
+            <h1>Day 01 你的第一個 Markdown 轉 HTML 頁面</h1>
+            <div class="post-date">📅 2026-08-10 · ✍️ Kai</div>
+            <div class="post-tags"><span>#生活</span> <span>#心得</span></div>
         </div>
-        <h1>學習 JavaScript 的筆記</h1>
-<p>今天學到了 <code>fetch()</code> 和 <code>Promise</code>。</p>
-<h2>重點整理</h2>
-<ol>
-<li><strong>fetch()</strong> 用來讀取外部資源</li>
-<li><strong>.then()</strong> 處理成功的情況</li>
-<li><strong>.catch()</strong> 處理錯誤的情況</li>
-</ol>
-<h3>範例程式碼</h3>
-<pre><code class="language-javascript">fetch(&#39;about.md&#39;)
-    .then(response =&gt; response.text())
-    .then(data =&gt; console.log(data))
-    .catch(error =&gt; console.error(error));
+        <h1>Day 01 你的第一個 Markdown 轉 HTML 頁面</h1>
+<p>我們從最簡單的開始，目標是讓瀏覽器把 Markdown 文字變成漂亮的網頁標題。</p>
+<h2>Step 1：建立專案資料夾</h2>
+<p>在你的電腦桌面新增一個資料夾，命名為 my-markdown-site，然後用 VS Code 打開它。</p>
+<h2>Step 2：建立 index.html</h2>
+<p>在資料夾中新增 index.html</p>
+<h2>Step 3：寫 JavaScript 把 Markdown 轉成 HTML</h2>
+<p>在 <script> 標籤內（marked.js 的下面），加入以下程式碼：</p>
+<pre><code>// 1. 定義你的 Markdown 內容（先寫死，之後再從檔案讀取）
+const markdownContent = `
+# 你好，世界！
+
+這是我用 **Markdown** 寫的第一段內容。
+
+- 清單項目 1
+- 清單項目 2
+- 清單項目 3
+
+&gt; 這是一段引用文字。
+`;
+
+// 2. 使用 marked.js 將 Markdown 轉換成 HTML
+const htmlContent = marked.parse(markdownContent);
+
+// 3. 找到頁面上的 #content 元素，把轉換好的 HTML 放進去
+document.getElementById(&#39;content&#39;).innerHTML = htmlContent;
 </code></pre>
+<h2>Step 4：用 Live Server 打開網頁</h2>
+<p>重要：不要直接雙擊 index.html 用瀏覽器打開（雖然現在還不會有問題，但之後讀取 .md 檔案時會遇到 CORS 錯誤）。</p>
+<h3>正確做法：</h3>
+<ol>
+<li>在 VS Code 中，對著 index.html 按右鍵</li>
+<li>選擇 「Open with Live Server」</li>
+<li>瀏覽器會自動打開 <a href="http://127.0.0.1:5500/index.html">http://127.0.0.1:5500/index.html</a></li>
+</ol>
+<h2>Step 5：檢查成果</h2>
+<p>你應該會看到：</p>
+<ul>
+<li>標題「📝 我的第一篇 Markdown 文章」</li>
+<li>下方顯示轉換後的內容：<ul>
+<li>「你好，世界！」（變成 <h1> 大標題）</li>
+<li>一段普通文字</li>
+<li>一個有 3 個項目的清單</li>
+<li>一段引用文字（灰色區塊）</li>
+</ul>
+</li>
+</ul>
+<h2>今天的作業（Day 1 完成標準）</h2>
+<ul>
+<li>成功用 marked.js 把 Markdown 字串轉成 HTML</li>
+<li>修改 markdownContent 的內容，加入 ## 二級標題 和 <a href="https://example.com">連結</a>，確認都能正確轉換</li>
+<li>試著把 markdownContent 的內容改成你自己的自我介紹</li>
+</ul>
+<blockquote>
+<p>今日問題：在 STEP4 中 對著 index.html 按右鍵。選單中沒有 “Open with Live Server” 。</p>
+</blockquote>
 
     
         </main>
