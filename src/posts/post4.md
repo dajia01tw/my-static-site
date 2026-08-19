@@ -19,7 +19,7 @@ author: Kai
 
 ## Step 3：寫 JavaScript 把 Markdown 轉成 HTML
 
-在 <script> 標籤內（marked.js 的下面），加入以下程式碼：
+在 `<script>` 標籤內（marked.js 的下面），加入以下程式碼：
 
 ```
 // 1. 定義你的 Markdown 內容（先寫死，之後再從檔案讀取）
