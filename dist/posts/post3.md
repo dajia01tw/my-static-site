@@ -170,12 +170,12 @@ author: Alex
 實際範例：
 
 ```
-![金門大橋夕陽](<https://example.com/bridge.jpg>)
+![大佳稅務-banner](<https://www.dajia01.com.tw/pic/tcpa_02.jpg>)
 ```
 
 轉換結果：
 
-![金門大橋夕陽](<https://example.com/bridge.jpg>)
+![大佳稅務-banner](<https://www.dajia01.com.tw/pic/tcpa_02.jpg>)
 
 
 關鍵差異：開頭的 ! 驚嘆號讓它變成圖片。沒有它，就只是普通連結。
