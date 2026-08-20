@@ -382,7 +382,7 @@ table { border: 1px solid red; }
 
 **方法 A：改用 .mdx（最推薦）**
 
-如果你把 .md 改成 .mdx，你就能在檔案裡寫 <style>。
+如果你把 .md 改成 .mdx，你就能在檔案裡寫 `<style>`。
 
 例如：
 
