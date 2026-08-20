@@ -5,9 +5,22 @@
         <link>https://your-site.vercel.app</link>
         <description>使用 Markdown 生成的靜態部落格</description>
         <language>zh-tw</language>
-        <lastBuildDate>Thu, 20 Aug 2026 04:24:37 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 20 Aug 2026 10:10:03 GMT</lastBuildDate>
         <atom:link href="https://your-site.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
         
+        
+        <item>
+            <title>Day 05 靜態網站生成器（Static Site Generator）與部署</title>
+            <link>https://your-site.vercel.app/post8.html</link>
+            <guid>https://your-site.vercel.app/post8.html</guid>
+            <pubDate>Fri, 14 Aug 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[<h1>Day 05 靜態網站生成器（Static Site Generator）與部署</h1>
+<p>今天是最令人興奮的一天！我們要把你開發的動態網站，變成真正的靜態網站，然後部署到網路上，讓全世界都能看到！</p>
+<h2>為什麼要做靜態網站生成？</h2>
+<h3>你目前的運作方式（Client-Side Rendering）：</h3>
+<pre><code>text
+使用者打開網頁 →...]]></description>
+        </item>
         
         <item>
             <title>Markdown 語法小抄</title>

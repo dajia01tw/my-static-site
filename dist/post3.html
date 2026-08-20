@@ -211,6 +211,15 @@
     
           <ul class="post-list" id="postList">
             
+            <li class="">
+                <a href="post8.html">
+                    Day 05 靜態網站生成器（Static Site Generator）與部署
+                    <span class="post-meta">
+                        2026-08-14 <span class="post-tag">#工具</span> <span class="post-tag">#Node</span> <span class="post-tag">#vercel</span> <span class="post-tag">#心得</span>
+                    </span>
+                </a>
+            </li>
+        
             <li class="active">
                 <a href="post3.html">
                     Markdown 語法小抄
@@ -260,7 +269,7 @@
                 <a href="post4.html">
                     Day 01 你的第一個 Markdown 轉 HTML 頁面
                     <span class="post-meta">
-                        2026-08-10 <span class="post-tag">#程式</span> <span class="post-tag">#心得</span>
+                        2026-08-10 <span class="post-tag">#程式</span> <span class="post-tag">#工具</span> <span class="post-tag">#vs code</span> <span class="post-tag">#心得</span>
                     </span>
                 </a>
             </li>
@@ -335,6 +344,7 @@
 <p><em>斜體文字</em></p>
 <p><em><strong>粗體加斜體</strong></em></p>
 <p><strong>常見錯誤</strong>：在星號裡面加空格會破壞格式。<code>** 文字 **</code> 不會有用。要緊貼：<code>**文字**</code>。</p>
+<hr>
 <h3>2. 標題（建立結構）</h3>
 <p><strong>語法</strong>：</p>
 <pre><code># 標題 1（文件標題）
@@ -345,6 +355,7 @@
 <p><strong>經驗法則</strong>：用一個 # 當文件標題，## 當主要段落，### 當段落中的小節。大多數文件不需要超過三層標題。</p>
 <p><strong>常見錯誤</strong>：不要跳級。從 ## 直接跳到 #### 會讓讀者困惑，也破壞導覽結構。永遠按順序來。</p>
 <p><strong>為什麼重要</strong>：標題是文件的骨架。它們幫助讀者掃描、跳到需要的段落，一眼理解你的結構。</p>
+<hr>
 <h3>3. 清單（項目符號和編號）</h3>
 <p><strong>語法</strong>：</p>
 <pre><code>- 項目符號
@@ -382,6 +393,7 @@
 1. 第三項
 </code></pre>
 <p>仍然會顯示為 1、2、3。</p>
+<hr>
 <h3>4. 連結</h3>
 <p>語法：</p>
 <pre><code>[連結文字](網址)
@@ -397,6 +409,7 @@
 <p>✅ <code>閱讀 [Python 官方文件](網址)了解細節</code></p>
 <p>為什麼？對無障礙功能更好（螢幕閱讀器），對 SEO 更好，對掃描內容的讀者更有幫助。</p>
 <p>💡 電子郵件連結：在網址裡用 <code>mailto</code>: 來建立可點擊的電子郵件連結：<code>[聯絡我]([mailto:你的@email.com](mailto:你的@email.com))</code></p>
+<hr>
 <h3>5. 圖片</h3>
 <p>語法：</p>
 <pre><code>![替代文字](圖片網址.jpg)
@@ -414,6 +427,7 @@
 <p>替代文字很重要：<code>[ ]</code> 裡面的文字就是你的替代文字。它會在圖片載入失敗時顯示，也幫助使用螢幕閱讀器的視障讀者。永遠寫描述性的替代文字。</p>
 <p>好的：<code>![終端機顯示 npm install 指令的截圖]</code></p>
 <p>不好的：<code>![圖片1] 或 ![照片]</code></p>
+<hr>
 <h3>6. 程式碼（行內和區塊）</h3>
 <p>這是 Markdown 在技術寫作上真正發光的地方。</p>
 <p>行內程式碼（短片段）：</p>
@@ -422,6 +436,7 @@
 執行 `npm install` 來安裝相依套件。
 </code></pre>
 <p>顯示為：使用 <code>print()</code> 函式來顯示輸出。</p>
+<hr>
 <h3>7. 引用區塊</h3>
 <p>語法：</p>
 <pre><code>&gt; 這是引用或重點提示。
@@ -447,6 +462,89 @@
 &gt;&gt;&gt; 深層巢狀
 </code></pre>
 <p>大多數人很少巢狀引用，但需要時可以用。</p>
+<hr>
+<h3>8. 分隔線</h3>
+<p>語法：</p>
+<pre><code>三個減號-如下
+---
+三個星號-如下
+***
+三個底線-如下
+___
+</code></pre>
+<p>顯示為：</p>
+<h2>三個減號-如下</h2>
+<p>三個星號-如下</p>
+<hr>
+<p>三個底線-如下</p>
+<hr>
+<p>注意事項：</p>
+<ul>
+<li><p>這一行裡面不能有其他文字。</p>
+</li>
+<li><p>符號中間可以加上空白鍵（例如 - - -），顯示效果一樣。</p>
+</li>
+<li><p>建議在分隔線的前後各空一行，這樣排版會更清楚。</p>
+</li>
+</ul>
+<hr>
+<h3>9. 表格</h3>
+<p>表格是用垂直線 | 來分隔欄位，並用連字號 - 來建立表頭與內容的分隔線。兩端是否加上垂直線皆可。</p>
+<p>語法：</p>
+<pre><code>markdown
+
+| 標題一 | 標題二 | 標題三 |
+| -------- | -------- | -------- |
+| 內容 1   | 內容 2   | 內容 3   |
+| 內容 4   | 內容 5   | 內容 6   |
+</code></pre>
+<p>結果呈現：</p>
+<table>
+<thead>
+<tr>
+<th>標題一</th>
+<th>標題二</th>
+<th>標題三</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>內容 1</td>
+<td>內容 2</td>
+<td>內容 3</td>
+</tr>
+<tr>
+<td>內容 4</td>
+<td>內容 5</td>
+<td>內容 6</td>
+</tr>
+</tbody></table>
+<p>對齊方式：</p>
+<p>在分隔線的連字號加上冒號 : 可以控制欄位文字的對齊方向：</p>
+<p>靠左對齊：<code>:--</code></p>
+<p>靠右對齊：<code>--:</code></p>
+<p>置中對齊：<code>:--:</code></p>
+<p>語法：</p>
+<pre><code>markdown
+| 靠左 | 置中 | 靠右 |
+| :--- | :---: | ---: |
+| A | B | C |
+</code></pre>
+<p>結果呈現：</p>
+<table>
+<thead>
+<tr>
+<th align="left">靠左</th>
+<th align="center">置中</th>
+<th align="right">靠右</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">A</td>
+<td align="center">B</td>
+<td align="right">C</td>
+</tr>
+</tbody></table>
+<hr>
 <h2>初學者最常犯的 5 個錯誤（立刻修正）</h2>
 <p>我教過數百人 Markdown。這五個錯誤每次都會出現。現在學會它們，省下數小時的挫折。</p>
 <h3>錯誤 #1：忘記空行</h3>

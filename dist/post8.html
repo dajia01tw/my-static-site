@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的部落格</title>
+    <title>Day 05 靜態網站生成器（Static Site Generator）與部署</title>
     <style>
         * {
             margin: 0;
@@ -211,7 +211,7 @@
     
           <ul class="post-list" id="postList">
             
-            <li class="">
+            <li class="active">
                 <a href="post8.html">
                     Day 05 靜態網站生成器（Static Site Generator）與部署
                     <span class="post-meta">
@@ -283,17 +283,6 @@
                 </a>
             </li>
         
-        <script>
-            document.getElementById('searchInput').addEventListener('input', function() {
-                const query = this.value.toLowerCase();
-                const items = document.querySelectorAll('#postList li');
-                items.forEach(item => {
-                    const text = item.textContent.toLowerCase();
-                    item.style.display = text.includes(query) ? '' : 'none';
-                });
-            });
-        </script>
-        <div class="tag-cloud"><span style="font-size: 24px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#工具 (3)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#Node (1)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#vercel (1)</span><span style="font-size: 36px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#心得 (6)</span><span style="font-size: 36px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#程式 (6)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#md (1)</span><span style="font-size: 28px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#JavaScript (4)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#生活 (1)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#vs code (1)</span></div>
           </ul>
         </aside>
 

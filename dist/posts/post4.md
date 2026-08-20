@@ -1,7 +1,7 @@
 ---
 title: Day 01 你的第一個 Markdown 轉 HTML 頁面
 date: 2026-08-10
-tags: [程式, 心得]
+tags: [程式, 工具, vs code, 心得]
 author: Kai
 ---
 
