@@ -18,66 +18,90 @@ author: Kai
 
 ## Step 1：建立 about.md 檔案
 
-在你的電腦桌面新增一個資料夾，命名為 my-markdown-site，然後用 VS Code 打開它。
+在你的 my-markdown-site 資料夾中，建立一個新檔案，命名為 about.md。
 
 
-## Step 2：建立 index.html
+## Step 2：修改 index.html
 
-在資料夾中新增 index.html。
-
-
-## Step 3：寫 JavaScript 把 Markdown 轉成 HTML
-
-在 `<script>` 標籤內（marked.js 的下面），加入以下程式碼：
-
-```
-// 1. 定義你的 Markdown 內容（先寫死，之後再從檔案讀取）
-const markdownContent = `
-# 你好，世界！
-
-這是我用 **Markdown** 寫的第一段內容。
-
-- 清單項目 1
-- 清單項目 2
-- 清單項目 3
-
-> 這是一段引用文字。
-`;
-
-// 2. 使用 marked.js 將 Markdown 轉換成 HTML
-const htmlContent = marked.parse(markdownContent);
-
-// 3. 找到頁面上的 #content 元素，把轉換好的 HTML 放進去
-document.getElementById('content').innerHTML = htmlContent;
-```
+現在我們要修改 JavaScript，讓它不再寫死 Markdown 內容，而是從外部讀取。
 
 
-## Step 4：用 Live Server 打開網頁
+## Step 3：用 Live Server 測試
 
-重要：不要直接雙擊 index.html 用瀏覽器打開（雖然現在還不會有問題，但之後讀取 .md 檔案時會遇到 CORS 錯誤）。
+重要提醒：這次一定要用 Live Server 打開！
 
-### 正確做法：
-1. 在 VS Code 中，對著 index.html 按右鍵
+1. 在 VS Code 中對著 index.html 按右鍵
+
 2. 選擇 「Open with Live Server」
-3. 瀏覽器會自動打開 http://127.0.0.1:5500/index.html
+
+3. 瀏覽器會打開 http://127.0.0.1:5500/index.html
+
+你應該會看到 about.md 的內容被漂亮地渲染出來！
 
 
-## Step 5：檢查成果
+## Step 4：試試看不同的內容
 
-你應該會看到：
-- 標題「📝 我的第一篇 Markdown 文章」
-- 下方顯示轉換後的內容：
-  - 「你好，世界！」（變成 `<h1>` 大標題）
-  - 一段普通文字
-  - 一個有 3 個項目的清單
-  - 一段引用文字（灰色區塊）
+修改 about.md 的內容，例如：
+
+```
+
+markdown
+# 今天學到的新東西
+
+今天學到了 **fetch()** 這個 JavaScript 內建函式，它可以：
+
+1. 讀取外部檔案
+2. 發送網路請求
+3. 取得遠端資料
+
+## 我理解的重點
+
+- `fetch()` 是**非同步**的，所以要搭配 `.then()`
+- 要用 `.text()` 把回應轉成文字
+- 記得用 `.catch()` 處理錯誤
+
+---
+
+[回到首頁](index.html)
+
+```
+
+儲存 about.md 後，重新整理瀏覽器（不需要重新啟動 Live Server），內容就會更新！
 
 
-## 今天的作業（Day 1 完成標準）
-- 成功用 marked.js 把 Markdown 字串轉成 HTML
-- 修改 markdownContent 的內容，加入 ## 二級標題 和 [連結](https://example.com)，確認都能正確轉換
-- 試著把 markdownContent 的內容改成你自己的自我介紹
+
+## 今天學到的關鍵觀念
+
+1. fetch() 是 JavaScript 內建函式
+
+  - 用來讀取網路資源或本地檔案
+
+  - 回傳一個 Promise（Promise 是 JavaScript 處理非同步的方式）
+
+2. 非同步程式碼（Asynchronous）
+
+  - fetch() 不會馬上回傳結果，需要等待檔案讀取完成
+
+  - 用 .then() 來處理「讀取完成後要做的事」
+
+  - 用 .catch() 來處理「如果出錯怎麼辦」
+
+3. 檔案路徑
+
+  - fetch('about.md') 表示在同一層資料夾找 about.md
+
+  - 如果檔案在子資料夾，要寫 fetch('content/about.md')
 
 
 
-> 今日問題：在 STEP4 中 對著 index.html 按右鍵。選單中沒有 “Open with Live Server” 。
+
+
+## 今天的作業（Day 2 完成標準）
+- 成功用 fetch() 讀取 about.md
+- 成功用 marked.parse() 轉換並顯示內容
+- 修改 about.md 內容，加入至少 3 種 Markdown 語法（標題、清單、引用、連結等）
+- 故意把 about.md 改名（例如改成 about2.md），看看錯誤訊息是否正常顯示
+
+
+
+> 今天很成功。

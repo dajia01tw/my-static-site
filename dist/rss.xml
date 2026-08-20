@@ -5,9 +5,32 @@
         <link>https://your-site.vercel.app</link>
         <description>使用 Markdown 生成的靜態部落格</description>
         <language>zh-tw</language>
-        <lastBuildDate>Thu, 20 Aug 2026 01:57:59 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 20 Aug 2026 02:48:34 GMT</lastBuildDate>
         <atom:link href="https://your-site.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
         
+        
+        <item>
+            <title>Markdown 語法小抄</title>
+            <link>https://your-site.vercel.app/post3.html</link>
+            <guid>https://your-site.vercel.app/post3.html</guid>
+            <pubDate>Wed, 12 Aug 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[<h1>Markdown 語法小抄</h1>
+<p>常用的 Markdown 語法整理。</p>
+<h2>標題</h2>
+<h1>H1</h1>
+<h2>H2</h2>
+<h3>H3</h3>
+<h2>清單</h2>
+<ul>
+<li>項目 1</li>
+<li>項目 2<ul>
+<li>子項目 2.1</li>
+<li>子項目 2.2</li>
+</ul>
+</li>
+</ul>
+<h2>連結與...]]></description>
+        </item>
         
         <item>
             <title>學習 JavaScript 的筆記</title>
@@ -68,26 +91,6 @@
 </li>
 </ol>
 <h2>Step 1...]]></description>
-        </item>
-        
-        <item>
-            <title>無標題</title>
-            <link>https://your-site.vercel.app/post3.html</link>
-            <guid>https://your-site.vercel.app/post3.html</guid>
-            <pubDate>Thu, 01 Jan 1970 00:00:00 GMT</pubDate>
-            <description><![CDATA[<h2>title: Markdown 語法小抄
-date: 2026-08-12
-tags: [寫作, 工具]
-author: Alex</h2>
-<h1>Markdown 語法小抄</h1>
-<p>常用的 Markdown 語法整理。</p>
-<h2>標題</h2>
-<h1>H1</h1>
-<h2>H2</h2>
-<h3>H3</h3>
-<h2>清單</h2>
-<ul>
-<li>項目 1</l...]]></description>
         </item>
         
     </channel>

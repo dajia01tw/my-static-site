@@ -212,6 +212,15 @@
           <ul class="post-list" id="postList">
             
             <li class="">
+                <a href="post3.html">
+                    Markdown 語法小抄
+                    <span class="post-meta">
+                        2026-08-12 <span class="post-tag">#寫作</span> <span class="post-tag">#工具</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li class="">
                 <a href="post2.html">
                     學習 JavaScript 的筆記
                     <span class="post-meta">
@@ -247,15 +256,6 @@
                 </a>
             </li>
         
-            <li class="">
-                <a href="post3.html">
-                    無標題
-                    <span class="post-meta">
-                        1970-01-01 
-                    </span>
-                </a>
-            </li>
-        
         <script>
             document.getElementById('searchInput').addEventListener('input', function() {
                 const query = this.value.toLowerCase();
@@ -266,31 +266,67 @@
                 });
             });
         </script>
-        <div class="tag-cloud"><span style="font-size: 24px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#程式 (3)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#JavaScript (1)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#生活 (1)</span><span style="font-size: 24px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#心得 (3)</span></div>
+        <div class="tag-cloud"><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#寫作 (1)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#工具 (1)</span><span style="font-size: 24px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#程式 (3)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#JavaScript (1)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#生活 (1)</span><span style="font-size: 24px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#心得 (3)</span></div>
           </ul>
         </aside>
 
         <main class="main-content">
             
         <div class="post-header">
-            <h1>學習 JavaScript 的筆記</h1>
-            <div class="post-date">📅 2026-08-11 · ✍️ Alex</div>
-            <div class="post-tags"><span>#程式</span> <span>#JavaScript</span></div>
+            <h1>Markdown 語法小抄</h1>
+            <div class="post-date">📅 2026-08-12 · ✍️ Alex</div>
+            <div class="post-tags"><span>#寫作</span> <span>#工具</span></div>
         </div>
-        <h1>學習 JavaScript 的筆記</h1>
-<p>今天學到了 <code>fetch()</code> 和 <code>Promise</code>。</p>
-<h2>重點整理</h2>
-<ol>
-<li><strong>fetch()</strong> 用來讀取外部資源</li>
-<li><strong>.then()</strong> 處理成功的情況</li>
-<li><strong>.catch()</strong> 處理錯誤的情況</li>
-</ol>
-<h3>範例程式碼</h3>
-<pre><code class="language-javascript">fetch(&#39;about.md&#39;)
-    .then(response =&gt; response.text())
-    .then(data =&gt; console.log(data))
-    .catch(error =&gt; console.error(error));
+        <h1>Markdown 語法小抄</h1>
+<p>常用的 Markdown 語法整理。</p>
+<h2>標題</h2>
+<h1>H1</h1>
+<h2>H2</h2>
+<h3>H3</h3>
+<h2>清單</h2>
+<ul>
+<li>項目 1</li>
+<li>項目 2<ul>
+<li>子項目 2.1</li>
+<li>子項目 2.2</li>
+</ul>
+</li>
+</ul>
+<h2>連結與圖片</h2>
+<p><a href="https://google.com">Google</a></p>
+<p><img src="https://via.placeholder.com/150" alt="圖片描述"></p>
+<h2>表格</h2>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>價格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>蘋果</td>
+<td>$10</td>
+</tr>
+<tr>
+<td>香蕉</td>
+<td>$20</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Markdown 入門速查表：給完全新手的收藏指南
+<a href="https://vocus.cc/article/68efa7c1fd89780001a99c46">https://vocus.cc/article/68efa7c1fd89780001a99c46</a>
+2025/10/15 更新</p>
+</blockquote>
+<h3>1. 粗體和斜體文字</h3>
+<p>語法：</p>
+<pre><code>**粗體文字**
+*斜體文字*
+***粗體加斜體***
 </code></pre>
+<p>轉換結果：</p>
+<p><strong>粗體文字</strong>
+<em>斜體文字</em>
+<em><strong>粗體加斜體</strong></em></p>
 
     
         </main>
