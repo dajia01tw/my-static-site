@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day 02 把 Markdown 內容分離到獨立檔案</title>
+    <title>Day 04 從文章中自動提取 Front Matter</title>
     <style>
         * {
             margin: 0;
@@ -220,7 +220,7 @@
                 </a>
             </li>
         
-            <li class="">
+            <li class="active">
                 <a href="post7.html">
                     Day 04 從文章中自動提取 Front Matter
                     <span class="post-meta">
@@ -265,7 +265,7 @@
                 </a>
             </li>
         
-            <li class="active">
+            <li class="">
                 <a href="post5.html">
                     Day 02 把 Markdown 內容分離到獨立檔案
                     <span class="post-meta">
@@ -280,98 +280,239 @@
         <main class="main-content">
             
         <div class="post-header">
-            <h1>Day 02 把 Markdown 內容分離到獨立檔案</h1>
-            <div class="post-date">📅 2026-08-10 · ✍️ Kai</div>
+            <h1>Day 04 從文章中自動提取 Front Matter</h1>
+            <div class="post-date">📅 2026-08-12 · ✍️ Kai、deepseek</div>
             <div class="post-tags"><span>#程式</span> <span>#JavaScript</span> <span>#心得</span></div>
         </div>
-        <h1>Day 02 把 Markdown 內容分離到獨立檔案</h1>
+        <h1>Day 04 從文章中自動提取 Front Matter</h1>
 <p>今天的目標是：</p>
 <ol>
-<li><p>建立一個獨立的 .md 檔案</p>
+<li><p>學習什麼是 Front Matter（文章前面的元資料區塊）</p>
 </li>
-<li><p>用 JavaScript 的 fetch() 去讀取它</p>
+<li><p>從 .md 檔案中自動提取標題、日期等資訊</p>
 </li>
-<li><p>再把讀到的內容用 marked.parse() 轉換成 HTML</p>
+<li><p>完全擺脫 posts.json，讓系統自動掃描文章</p>
 </li>
-</ol>
-<h2>Step 1：建立 about.md 檔案</h2>
-<p>在你的 my-markdown-site 資料夾中，建立一個新檔案，命名為 about.md。</p>
-<h2>Step 2：修改 index.html</h2>
-<p>現在我們要修改 JavaScript，讓它不再寫死 Markdown 內容，而是從外部讀取。</p>
-<h2>Step 3：用 Live Server 測試</h2>
-<p>重要提醒：這次一定要用 Live Server 打開！</p>
-<ol>
-<li><p>在 VS Code 中對著 index.html 按右鍵</p>
-</li>
-<li><p>選擇 「Open with Live Server」</p>
-</li>
-<li><p>瀏覽器會打開 <a href="http://127.0.0.1:5500/index.html">http://127.0.0.1:5500/index.html</a></p>
+<li><p>實現真正的「內容與資料分離」</p>
 </li>
 </ol>
-<p>你應該會看到 about.md 的內容被漂亮地渲染出來！</p>
-<h2>Step 4：試試看不同的內容</h2>
-<p>修改 about.md 的內容，例如：</p>
-<pre><code>
-markdown
-# 今天學到的新東西
+<h2>為什麼需要 Front Matter？</h2>
+<p>在 Day 3 中，我們用 posts.json 來管理文章清單，但這樣有幾個問題：</p>
+<ul>
+<li><p>新增文章時，要同時修改 posts.json，容易忘記</p>
+</li>
+<li><p>標題和日期儲存在兩個地方（JSON 和 Markdown），可能不同步</p>
+</li>
+<li><p>不夠「自動化」</p>
+</li>
+</ul>
+<p>Front Matter 解決了這個問題：把文章的所有「元資料」（標題、日期、標籤等）直接寫在 Markdown 檔案的最前面！</p>
+<h2>Step 1：更新所有文章，加入 Front Matter</h2>
+<p>修改你的文章檔案，在最前面加入 --- 區塊：</p>
+<p>posts/post1.md</p>
+<p>posts/post2.md</p>
+<p>posts/post3.md</p>
+<h2>Step 2：安裝 Front Matter 解析套件</h2>
+<p>我們需要一個套件來解析 Front Matter。這次用 gray-matter。</p>
+<p>在 index.html 中加入（放在 marked.js 之後）：</p>
+<pre><code>html
 
-今天學到了 **fetch()** 這個 JavaScript 內建函式，它可以：
-
-1. 讀取外部檔案
-2. 發送網路請求
-3. 取得遠端資料
-
-## 我理解的重點
-
-- `fetch()` 是**非同步**的，所以要搭配 `.then()`
-- 要用 `.text()` 把回應轉成文字
-- 記得用 `.catch()` 處理錯誤
-
----
-
-[回到首頁](index.html)
+&lt;!-- 引入 Front Matter 解析套件 --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/gray-matter@4.0.3/dist/gray-matter.min.js&quot;&gt;&lt;/script&gt;
 </code></pre>
-<p>儲存 about.md 後，重新整理瀏覽器（不需要重新啟動 Live Server），內容就會更新！</p>
-<h2>今天學到的關鍵觀念</h2>
+<blockquote>
+<p>Step 2：安裝 Front Matter 解析套件。這是一個程式的安裝？或只是在 index.html 中插入  <!-- 引入 Front Matter 解析套件 --><script src="https://cdn.jsdelivr.net/npm/gray-matter@4.0.3/dist/gray-matter.min.js"></script></p>
+</blockquote>
+<p>非常好的問題！這正是很多初學者會混淆的地方。讓我詳細解釋：</p>
+<p>直接回答
+這不是傳統意義的「安裝軟體」，而是在你的網頁中「引入一個外部的 JavaScript 程式庫」。</p>
+<p>你做的完全正確——就是在 index.html 中插入那行 <script> 標籤！</p>
+<blockquote>
+<p>如果我直接下載gray-matter.min.js檔, 並置於根目錄。並在適當的位置插入  <script src="./gray-matter.min.js"></script> 。是不是可行？</p>
+</blockquote>
+<p>完全可行！而且這是非常好的想法！ 👍</p>
+<p>這樣做不僅可行，還有幾個優點。讓我詳細說明：</p>
+<p>直接回答
+是的，完全可行！ 而且這正是「將依賴下載到本地」的標準做法。</p>
+<h2>Step 3：建立全新的 index.html（自動掃描版本）</h2>
+<p>這次我們完全移除 posts.json，改成「動態掃描」文章。</p>
+<h2>Step 4：測試成果</h2>
+<p>用 Live Server 打開 index.html，你應該會看到：</p>
 <ol>
-<li>fetch() 是 JavaScript 內建函式</li>
+<li><p>文章列表顯示所有文章標題、日期和標籤</p>
+</li>
+<li><p>文章內容自動顯示標題、作者、日期和標籤</p>
+</li>
+<li><p>新增文章時，只需：</p>
+</li>
 </ol>
 <ul>
-<li><p>用來讀取網路資源或本地檔案</p>
+<li><p>在 posts/ 資料夾新增 .md 檔案</p>
 </li>
-<li><p>回傳一個 Promise（Promise 是 JavaScript 處理非同步的方式）</p>
+<li><p>在 postFiles 陣列中加入檔名</p>
+</li>
+<li><p>不需要再維護 posts.json</p>
+</li>
+</ul>
+<h2>今天學到的關鍵觀念</h2>
+<ol>
+<li>Front Matter</li>
+</ol>
+<ul>
+<li><p>用 --- 分隔的 YAML 格式區塊</p>
+</li>
+<li><p>放在 Markdown 檔案最前面</p>
+</li>
+<li><p>用來儲存文章的「元資料」（標題、日期、標籤等）</p>
 </li>
 </ul>
 <ol start="2">
-<li>非同步程式碼（Asynchronous）</li>
+<li>gray-matter 套件</li>
 </ol>
 <ul>
-<li><p>fetch() 不會馬上回傳結果，需要等待檔案讀取完成</p>
+<li><p>解析 Front Matter 區塊</p>
 </li>
-<li><p>用 .then() 來處理「讀取完成後要做的事」</p>
+<li><p>回傳 <code>{ data: {...}, content: &#39;...&#39; }</code></p>
 </li>
-<li><p>用 .catch() 來處理「如果出錯怎麼辦」</p>
+<li><p>data 是解析後的資料，content 是純 Markdown 內容</p>
 </li>
 </ul>
 <ol start="3">
-<li>檔案路徑</li>
+<li>Promise.all()</li>
 </ol>
 <ul>
-<li><p>fetch(&#39;about.md&#39;) 表示在同一層資料夾找 about.md</p>
+<li><p>同時載入多個檔案</p>
 </li>
-<li><p>如果檔案在子資料夾，要寫 fetch(&#39;content/about.md&#39;)</p>
+<li><p>等待所有檔案都載入完成後才繼續</p>
+</li>
+<li><p>提高載入效率</p>
 </li>
 </ul>
-<h2>今天的作業（Day 2 完成標準）</h2>
+<ol start="4">
+<li>資料驅動 UI</li>
+</ol>
 <ul>
-<li>成功用 fetch() 讀取 about.md</li>
-<li>成功用 marked.parse() 轉換並顯示內容</li>
-<li>修改 about.md 內容，加入至少 3 種 Markdown 語法（標題、清單、引用、連結等）</li>
-<li>故意把 about.md 改名（例如改成 about2.md），看看錯誤訊息是否正常顯示</li>
+<li><p>文章資料儲存在 postsData 陣列中</p>
+</li>
+<li><p>UI 根據資料動態渲染</p>
+</li>
+<li><p>資料變更時，UI 自動更新</p>
+</li>
+</ul>
+<h2>今天的作業（Day 4 完成標準）</h2>
+<ul>
+<li>所有文章都加上 Front Matter（標題、日期、標籤、作者）</li>
+<li>成功安裝並使用 gray-matter</li>
+<li>文章列表顯示標題、日期和標籤</li>
+<li>文章內容顯示標題、作者、日期和標籤</li>
+<li>新增第 4 篇文章，只需在 postFiles 加入檔名，不需要修改 JSON</li>
 </ul>
 <blockquote>
-<p>今天很成功。</p>
+<p>今天經過了無數次的失敗。失敗的原因為以下：</p>
+<ol>
+<li>deepseek 提供之 CDN 引入失敗。</li>
+<li>提供之 js 檔無法下載。</li>
+</ol>
+<p>最終已經成功。經過這一段時間的失敗,我們嘗試了三種方案。以下是我的理解,請幫我看看是否正確。</p>
+<ol>
+<li>外部CDN：網頁html只會加入一行較為簡潔,外部CDN可能會自行升級我方不必理會；但有外部失聯間接造成我方網站癱瘓的可能。</li>
+<li>下載js到根目錄：最穩定,但程式碼過長。</li>
+<li>目前成功的方案：我不太理解,請簡單說明。</li>
+</ol>
 </blockquote>
+<p>恭喜你成功！🎉 你的理解非常正確，而且能歸納出這三個方案的重點，代表你已經掌握核心觀念了。我來幫你補充和確認：</p>
+<h3>方案 1：外部 CDN</h3>
+<pre><code>html
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/marked/marked.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>你說的都對：</p>
+<ul>
+<li><p>✅ 程式碼簡潔（一行搞定）</p>
+</li>
+<li><p>✅ 會自動升級（但可能造成版本不相容）</p>
+</li>
+<li><p>✅ 外部失聯會讓網站癱瘓</p>
+</li>
+</ul>
+<p>補充一點：</p>
+<ul>
+<li><p>CDN 還有「速度快」的優點，因為全球都有伺服器</p>
+</li>
+<li><p>適合用於大型專案或學習階段（方便快速）</p>
+</li>
+</ul>
+<h3>方案 2：下載到本地</h3>
+<pre><code>html
+&lt;script src=&quot;./gray-matter.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>你說的都對：</p>
+<ul>
+<li><p>✅ 最穩定（完全自給自足）</p>
+</li>
+<li><p>✅ 程式碼過長（下載的 .js 檔案可能很大）</p>
+</li>
+</ul>
+<p>補充一點：</p>
+<ul>
+<li><p>下載一次後，永遠不需要網路就能運作</p>
+</li>
+<li><p>適合用於正式上線的網站或內部系統</p>
+</li>
+</ul>
+<h3>方案 3：自製解析器（你目前成功的方案）</h3>
+<p>這是我幫你寫的這段程式碼：</p>
+<pre><code>javascript
+function parseFrontMatter(content) {
+    // 檢查是否以 --- 開頭
+    if (!content.trim().startsWith(&#39;---&#39;)) {
+        return { data: {}, content: content };
+    }
+    // ... 後續解析邏輯
+}
+</code></pre>
+<h3>方案 3 的簡單說明（白話版）</h3>
+<h4>這到底是什麼？</h4>
+<p>就是「我自己寫一個小工具，來代替 gray-matter.js 的功能」。</p>
+<p>就像：</p>
+<ul>
+<li><p>原本你要喝果汁，需要買一台果汁機（gray-matter.js）</p>
+</li>
+<li><p>但果汁機缺貨（CDN 失效）</p>
+</li>
+<li><p>於是你用手和濾網把果汁擠出來（自己寫解析器）</p>
+</li>
+</ul>
+<h4>它是怎麼運作的？</h4>
+<ol>
+<li><p>讀取 Markdown 檔案內容（例如 post1.md）</p>
+</li>
+<li><p>找 --- 標記：</p>
+</li>
+</ol>
+<pre><code>text
+---          ← 第一個 ---
+title: 我的第一篇文章
+date: 2026-08-10
+tags: [生活, 心得]
+---          ← 第二個 ---
+# 我的第一篇文章    ← 真正的文章內容
+</code></pre>
+<ol start="3">
+<li><p>把中間的部分抓出來（title、date、tags）</p>
+</li>
+<li><p>解析成 JavaScript 物件：</p>
+</li>
+</ol>
+<pre><code>javascript
+{
+    title: &#39;我的第一篇文章&#39;,
+    date: &#39;2026-08-10&#39;,
+    tags: [&#39;生活&#39;, &#39;心得&#39;]
+}
+</code></pre>
+<ol start="5">
+<li>剩下的內容（# 我的第一篇文章...）就交給 marked.js 轉成 HTML</li>
+</ol>
 
     
         </main>

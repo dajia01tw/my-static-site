@@ -2,7 +2,7 @@
 ---
 title: Markdown 語法小抄
 date: 2026-08-12
-tags: [寫作, 工具]
+tags: [程式, md, 工具]
 author: Alex
 ---
 

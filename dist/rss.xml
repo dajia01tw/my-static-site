@@ -5,7 +5,7 @@
         <link>https://your-site.vercel.app</link>
         <description>使用 Markdown 生成的靜態部落格</description>
         <language>zh-tw</language>
-        <lastBuildDate>Thu, 20 Aug 2026 03:35:44 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 20 Aug 2026 04:24:37 GMT</lastBuildDate>
         <atom:link href="https://your-site.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
         
         
@@ -33,6 +33,23 @@
         </item>
         
         <item>
+            <title>Day 04 從文章中自動提取 Front Matter</title>
+            <link>https://your-site.vercel.app/post7.html</link>
+            <guid>https://your-site.vercel.app/post7.html</guid>
+            <pubDate>Wed, 12 Aug 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[<h1>Day 04 從文章中自動提取 Front Matter</h1>
+<p>今天的目標是：</p>
+<ol>
+<li><p>學習什麼是 Front Matter（文章前面的元資料區塊）</p>
+</li>
+<li><p>從 .md 檔案中自動提取標題、日期等資訊</p>
+</li>
+<li><p>完全擺脫 posts.json，讓系統自動掃描文章</p>
+</li>
+<li><p>實現真正的...]]></description>
+        </item>
+        
+        <item>
             <title>學習 JavaScript 的筆記</title>
             <link>https://your-site.vercel.app/post2.html</link>
             <guid>https://your-site.vercel.app/post2.html</guid>
@@ -44,6 +61,26 @@
 <li><strong>fetch()</strong> 用來讀取外部資源</li>
 <li><strong>.then()</strong> 處理成功的情況</li>
 <li><strong...]]></description>
+        </item>
+        
+        <item>
+            <title>Day 03 建立多篇文章與動態目錄</title>
+            <link>https://your-site.vercel.app/post6.html</link>
+            <guid>https://your-site.vercel.app/post6.html</guid>
+            <pubDate>Tue, 11 Aug 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[<h1>Day 03 建立多篇文章與動態目錄</h1>
+<p>今天的目標是：</p>
+<ol>
+<li><p>建立多個 Markdown 文章檔案</p>
+</li>
+<li><p>建立一個「文章清單」（用 JSON 檔案管理）</p>
+</li>
+<li><p>讓首頁動態顯示所有文章標題</p>
+</li>
+<li><p>點擊標題時，載入並顯示對應文章</p>
+</li>
+</ol>
+<h2>S...]]></description>
         </item>
         
         <item>

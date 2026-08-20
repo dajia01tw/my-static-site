@@ -1,7 +1,7 @@
 ---
 title: Day 02 把 Markdown 內容分離到獨立檔案
 date: 2026-08-10
-tags: [程式, 心得]
+tags: [程式, JavaScript, 心得]
 author: Kai
 ---
 
