@@ -306,6 +306,32 @@ ___
   </tr>
 </table>
 
+　.
+
+<script>
+    <style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table, th, td {
+  border: 1px solid #ccc;
+}
+
+th, td {
+  padding: 8px;
+}
+    </style>
+</script>
+
+| 階段 | 技能 |
+| ---- | ---- |
+| Day 1-2 | HTML + JavaScript + Markdown 基礎 |
+| Day 3-4 | 動態載入、Front Matter、自製解析器 |
+| Day 5 | Node.js 靜態網站生成、部署 |
+| Day 6 | 進階功能、自動化部署 |
+
 ___
 
 
