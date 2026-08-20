@@ -212,6 +212,15 @@
           <ul class="post-list" id="postList">
             
             <li class="">
+                <a href="post9.html">
+                    Day 06 進階功能與自動化
+                    <span class="post-meta">
+                        2026-08-15 <span class="post-tag">#工具</span> <span class="post-tag">#GitHub</span> <span class="post-tag">#Vercel</span> <span class="post-tag">#心得</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li class="">
                 <a href="post8.html">
                     Day 05 靜態網站生成器（Static Site Generator）與部署
                     <span class="post-meta">
@@ -293,312 +302,291 @@
                 });
             });
         </script>
-        <div class="tag-cloud"><span style="font-size: 24px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#工具 (3)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#Node (1)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#vercel (1)</span><span style="font-size: 36px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#心得 (6)</span><span style="font-size: 36px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#程式 (6)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#md (1)</span><span style="font-size: 28px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#JavaScript (4)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#生活 (1)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#vs code (1)</span></div>
+        <div class="tag-cloud"><span style="font-size: 28px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#工具 (4)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#GitHub (1)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#Vercel (1)</span><span style="font-size: 40px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#心得 (7)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#Node (1)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#vercel (1)</span><span style="font-size: 36px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#程式 (6)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#md (1)</span><span style="font-size: 28px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#JavaScript (4)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#生活 (1)</span><span style="font-size: 16px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#vs code (1)</span></div>
           </ul>
         </aside>
 
         <main class="main-content">
             
         <div class="post-header">
-            <h1>Day 05 靜態網站生成器（Static Site Generator）與部署</h1>
-            <div class="post-date">📅 2026-08-14 · ✍️ Kai、deepseek</div>
-            <div class="post-tags"><span>#工具</span> <span>#Node</span> <span>#vercel</span> <span>#心得</span></div>
+            <h1>Day 06 進階功能與自動化</h1>
+            <div class="post-date">📅 2026-08-15 · ✍️ Kai、deepseek</div>
+            <div class="post-tags"><span>#工具</span> <span>#GitHub</span> <span>#Vercel</span> <span>#心得</span></div>
         </div>
-        <h1>Day 05 靜態網站生成器（Static Site Generator）與部署</h1>
-<p>今天是最令人興奮的一天！我們要把你開發的動態網站，變成真正的靜態網站，然後部署到網路上，讓全世界都能看到！</p>
-<h2>為什麼要做靜態網站生成？</h2>
-<h3>你目前的運作方式（Client-Side Rendering）：</h3>
-<pre><code>text
-使用者打開網頁 → JavaScript 執行 → fetch 讀取 .md 檔案 → marked.js 轉換成 HTML → 顯示
-</code></pre>
-<p>缺點：</p>
-<ul>
-<li><p>❌ SEO 不好（搜尋引擎爬蟲抓不到內容）</p>
-</li>
-<li><p>❌ 第一次載入較慢（需要下載並執行 JavaScript）</p>
-</li>
-<li><p>❌ 需要 JavaScript 才能運作</p>
-</li>
-</ul>
-<h3>靜態網站生成（Static Site Generation）：</h3>
-<pre><code>text
-建構時：讀取 .md 檔案 → 轉換成 HTML → 產生 .html 檔案
-部署後：使用者直接看到完整的 HTML 內容
-</code></pre>
-<p>優點：</p>
-<ul>
-<li><p>✅ SEO 完美（爬蟲直接看到內容）</p>
-</li>
-<li><p>✅ 載入飛快（純 HTML，不需要 JavaScript）</p>
-</li>
-<li><p>✅ 不需要 JavaScript 也能看（除非需要互動功能）</p>
-</li>
-<li><p>✅ 可以放在任何靜態主機上（GitHub Pages、Vercel、Netlify）</p>
-</li>
-</ul>
-<h2>Day 5 的目標</h2>
+        <h1>Day 06 進階功能與自動化</h1>
+<p>今天的目標是：</p>
+<h2>Day 6 的目標</h2>
 <ol>
-<li><p>建立一個 Node.js 建構腳本，把 .md 檔案轉換成 .html</p>
+<li><p>加入文章搜尋功能</p>
 </li>
-<li><p>自動產生文章列表和文章頁面</p>
+<li><p>加入標籤雲（Tag Cloud）</p>
 </li>
-<li><p>部署到 Vercel（免費、超簡單）</p>
+<li><p>自動產生 RSS 訂閱</p>
+</li>
+<li><p>設定自動部署（GitHub + Vercel）</p>
 </li>
 </ol>
 <hr>
-<h2>Step 1：安裝 Node.js</h2>
-<p>如果你還沒有安裝 Node.js，請先安裝：</p>
-<ol>
-<li><p>前往 <a href="https://nodejs.org">https://nodejs.org</a></p>
-</li>
-<li><p>下載 LTS 版本（長期支援版本）</p>
-</li>
-<li><p>安裝（一直按下一步即可）</p>
-</li>
-<li><p>安裝完成後，打開 VS Code 的終端機（Terminal），輸入：</p>
-</li>
-</ol>
-<pre><code>bash
-node --version
+<h2>Step 1：加入文章搜尋功能</h2>
+<p>在 src/templates/layout.html 中，在側邊欄加入搜尋框：</p>
+<pre><code>html
+&lt;aside class=&quot;sidebar&quot;&gt;
+    &lt;h2&gt;📚 文章列表&lt;/h2&gt;
+    
+    &lt;!-- 新增搜尋框 --&gt;
+    &lt;div style=&quot;margin-bottom: 15px;&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;searchInput&quot; placeholder=&quot;🔍 搜尋文章...&quot; 
+               style=&quot;width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px;&quot;&gt;
+    &lt;/div&gt;
+    
+    &lt;ul class=&quot;post-list&quot; id=&quot;postList&quot;&gt;
+        {{postList}}
+    &lt;/ul&gt;
+&lt;/aside&gt;
 </code></pre>
-<p>如果顯示版本號（例如 v18.x.x），表示安裝成功！</p>
-<hr>
-<h2>Step 2：建立專案結構</h2>
-<p>為了避免與現有檔案衝突，我們建立一個新的資料夾：</p>
-<p>在 VS Code 中，建立以下結構：</p>
-<pre><code>text
-my-static-site/
-├── src/
-│   ├── templates/
-│   │   ├── layout.html      (頁面模板)
-│   │   └── post.html        (文章模板)
-│   ├── posts/
-│   │   ├── post1.md
-│   │   ├── post2.md
-│   │   └── post3.md
-│   └── index.md             (首頁內容)
-├── build.js                 (建構腳本)
-├── package.json             (Node.js 設定檔)
-└── dist/                    (建構後的輸出資料夾，自動產生)
-</code></pre>
-<hr>
-<h2>Step 3：建立 package.json</h2>
-<p>在 my-static-site 資料夾中，建立 package.json 檔案：</p>
-<pre><code>json
-{
-  &quot;name&quot;: &quot;my-static-site&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;靜態網站生成器練習&quot;,
-  &quot;main&quot;: &quot;build.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;build&quot;: &quot;node build.js&quot;
-  },
-  &quot;dependencies&quot;: {
-    &quot;marked&quot;: &quot;^9.0.0&quot;
-  }
+<p>然後在 build.js 中，在 generatePostList 函數中加入搜尋功能的 JavaScript：</p>
+<pre><code>javascript
+function generatePostList(currentPostFile = null) {
+    let html = &#39;&#39;;
+    for (const post of posts) {
+        // ... 原本的程式碼 ...
+    }
+    
+    // 加入搜尋功能的 JavaScript（只加在 index.html）
+    if (currentPostFile === null) {
+        html += `
+        &lt;script&gt;
+            document.getElementById(&#39;searchInput&#39;).addEventListener(&#39;input&#39;, function() {
+                const query = this.value.toLowerCase();
+                const items = document.querySelectorAll(&#39;#postList li&#39;);
+                items.forEach(item =&gt; {
+                    const text = item.textContent.toLowerCase();
+                    item.style.display = text.includes(query) ? &#39;&#39; : &#39;none&#39;;
+                });
+            });
+        &lt;/script&gt;
+        `;
+    }
+    
+    return html;
 }
 </code></pre>
 <hr>
-<h2>Step 4：安裝相依套件</h2>
-<p>在 VS Code 終端機中（確保路徑在 my-static-site 資料夾），輸入：</p>
+<h2>Step 2：加入標籤雲</h2>
+<p>在 build.js 中，加入標籤統計功能：</p>
+<pre><code>javascript
+// 在 posts 載入完成後加入
+function generateTagCloud() {
+    const tagCount = {};
+    for (const post of posts) {
+        if (post.tags) {
+            for (const tag of post.tags) {
+                tagCount[tag] = (tagCount[tag] || 0) + 1;
+            }
+        }
+    }
+    
+    let html = &#39;&lt;div class=&quot;tag-cloud&quot;&gt;&#39;;
+    for (const [tag, count] of Object.entries(tagCount)) {
+        const size = 12 + count * 4; // 根據文章數量調整字體大小
+        html += `&lt;span style=&quot;font-size: ${size}px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;&quot;&gt;#${tag} (${count})&lt;/span&gt;`;
+    }
+    html += &#39;&lt;/div&gt;&#39;;
+    return html;
+}
+
+// 在 index.html 生成時加入
+const tagCloudHtml = generateTagCloud();
+const finalHtml = layoutTemplate
+    .replace(/{{title}}/g, &#39;我的部落格&#39;)
+    .replace(&#39;{{postList}}&#39;, postListHtml + tagCloudHtml)
+    .replace(&#39;{{content}}&#39;, homeContent);
+</code></pre>
+<hr>
+<h2>Step 3：自動產生 RSS 訂閱</h2>
+<p>建立一個新的模板檔案 src/templates/rss.xml：</p>
+<pre><code>xml
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;rss version=&quot;2.0&quot; xmlns:atom=&quot;http://www.w3.org/2005/Atom&quot;&gt;
+    &lt;channel&gt;
+        &lt;title&gt;我的部落格&lt;/title&gt;
+        &lt;link&gt;https://your-site.vercel.app&lt;/link&gt;
+        &lt;description&gt;使用 Markdown 生成的靜態部落格&lt;/description&gt;
+        &lt;language&gt;zh-tw&lt;/language&gt;
+        &lt;lastBuildDate&gt;{{lastBuildDate}}&lt;/lastBuildDate&gt;
+        &lt;atom:link href=&quot;https://your-site.vercel.app/rss.xml&quot; rel=&quot;self&quot; type=&quot;application/rss+xml&quot;/&gt;
+        
+        {{items}}
+    &lt;/channel&gt;
+&lt;/rss&gt;
+</code></pre>
+<p>在 build.js 中產生 RSS：</p>
+<pre><code>javascript
+// 產生 RSS
+function generateRSS() {
+    const now = new Date().toUTCString();
+    let itemsHtml = &#39;&#39;;
+    
+    for (const post of posts.slice(0, 10)) { // 只顯示最近10篇
+        const pubDate = new Date(post.date).toUTCString();
+        const link = `https://your-site.vercel.app/${post.filename.replace(&#39;.md&#39;, &#39;.html&#39;)}`;
+        
+        itemsHtml += `
+        &lt;item&gt;
+            &lt;title&gt;${post.title}&lt;/title&gt;
+            &lt;link&gt;${link}&lt;/link&gt;
+            &lt;guid&gt;${link}&lt;/guid&gt;
+            &lt;pubDate&gt;${pubDate}&lt;/pubDate&gt;
+            &lt;description&gt;&lt;![CDATA[${post.html.substring(0, 200)}...]]&gt;&lt;/description&gt;
+        &lt;/item&gt;
+        `;
+    }
+    
+    const rssContent = fs.readFileSync(
+        path.join(__dirname, &#39;src&#39;, &#39;templates&#39;, &#39;rss.xml&#39;),
+        &#39;utf-8&#39;
+    ).replace(&#39;{{lastBuildDate}}&#39;, now).replace(&#39;{{items}}&#39;, itemsHtml);
+    
+    fs.writeFileSync(path.join(distDir, &#39;rss.xml&#39;), rssContent);
+    console.log(&#39;  ✅ rss.xml&#39;);
+}
+
+// 在 build 流程中加入
+generateRSS();
+</code></pre>
+<hr>
+<h2>Step 4：設定自動部署（GitHub + Vercel）</h2>
+<h3>4.1 建立 GitHub 倉庫</h3>
+<ol>
+<li><p>前往 <a href="https://github.com/new">https://github.com/new</a></p>
+</li>
+<li><p>倉庫名稱輸入 my-static-site</p>
+</li>
+<li><p>選擇「Public」（公開）</p>
+</li>
+<li><p>點擊「Create repository」</p>
+</li>
+</ol>
+<h3>4.2 上傳程式碼到 GitHub</h3>
+<p>在 VS Code 終端機中執行：</p>
 <pre><code>bash
-npm install
+# 初始化 Git
+git init
+
+# 加入所有檔案
+git add .
+
+# 提交
+git commit -m &quot;Initial commit&quot;
+
+# 連結到 GitHub（把 YOUR_USERNAME 換成你的帳號）
+git remote add origin https://github.com/YOUR_USERNAME/my-static-site.git
+
+# 推送到 GitHub
+git branch -M main
+git push -u origin main
 </code></pre>
-<blockquote>
-<p>Step 4：安裝相依套件    這一步我失敗了, 為什麼？該如何做？</p>
-</blockquote>
-<p>這是一個很常見的 Windows 系統安全性問題！錯誤訊息說得很清楚：「因為這個系統上已停用指令碼執行，所以無法載入 npm.ps1」。</p>
-<p>這是 Windows 的 PowerShell 執行政策（Execution Policy）預設禁止執行腳本檔案造成的。</p>
-<h3>解決方法：使用 CMD（命令提示字元）代替 PowerShell（最簡單）✅</h3>
-<p>這是最快、最簡單的方法，不需要修改任何系統設定：</p>
+<h3>4.3 連結 Vercel 與 GitHub</h3>
 <ol>
-<li><p>在 VS Code 中，點擊終端機右上角的 下拉選單（通常顯示「PowerShell」）</p>
+<li><p>回到 Vercel 儀表板</p>
 </li>
-<li><p>選擇 「Command Prompt」 或 「cmd」</p>
+<li><p>點擊 「Add New...」→「Project」</p>
 </li>
-<li><p>然後輸入：</p>
+<li><p>選擇 「GitHub」</p>
 </li>
-</ol>
-<pre><code>bash
-npm install
-</code></pre>
-<p>這樣就成功了！</p>
-<hr>
-<h2>Step 5：建立模板檔案</h2>
-<p><code>src/templates/layout.html</code></p>
-<p>這是整個網站的外框（Header、Footer、Sidebar）：</p>
-<hr>
-<h2>Step 6：建立建構腳本 build.js</h2>
-<p>這是核心程式碼！它會：</p>
-<ol>
-<li><p>讀取所有 Markdown 檔案</p>
+<li><p>找到 my-static-site 倉庫</p>
 </li>
-<li><p>解析 Front Matter</p>
+<li><p>點擊 「Import」</p>
 </li>
-<li><p>轉換成 HTML</p>
+<li><p>設定：</p>
 </li>
-<li><p>套用模板</p>
+<li><p>Framework Preset：Other</p>
 </li>
-<li><p>輸出到 dist/ 資料夾</p>
+<li><p>Build Command：npm run build</p>
 </li>
-</ol>
-<hr>
-<h2>Step 7：將文章複製到 src/posts/</h2>
-<p>把 Day 4 的三篇文章複製到 src/posts/ 資料夾中：</p>
-<ul>
-<li><p>post1.md</p>
+<li><p>Output Directory：dist</p>
 </li>
-<li><p>post2.md</p>
-</li>
-<li><p>post3.md</p>
-</li>
-</ul>
-<hr>
-<h2>Step 8：執行建構</h2>
-<p>在 VS Code 終端機中（路徑在 my-static-site），輸入：</p>
-<pre><code>bash
-npm run build
-</code></pre>
-<p>你應該會看到類似這樣的輸出：</p>
-<pre><code>text
-📄 找到 3 篇文章
-✅ 載入 3 篇文章
-📝 產生文章頁面...
-  ✅ post1.html
-  ✅ post2.html
-  ✅ post3.html
-🏠 產生首頁...
-  ✅ index.html
-📊 複製 .md 檔案到 dist/posts/
-🎉 建構完成！
-📁 輸出目錄: C:\Users\...\my-static-site\dist
-🚀 可以用 Live Server 開啟 dist/index.html 預覽
-</code></pre>
-<hr>
-<h2>Step 9：預覽靜態網站</h2>
-<ol>
-<li><p>在 VS Code 中，打開 dist 資料夾</p>
-</li>
-<li><p>對著 index.html 按右鍵</p>
-</li>
-<li><p>選擇 「Open with Live Server」</p>
-</li>
-<li><p>你會看到和之前一樣的部落格，但這次完全不需要 JavaScript 就能運作！</p>
-</li>
-</ol>
-<hr>
-<h2>Step 10：部署到 Vercel（免費）</h2>
-<h3>註冊 Vercel</h3>
-<ol>
-<li><p>前往 <a href="https://vercel.com">https://vercel.com</a></p>
-</li>
-<li><p>點擊 「Sign Up」</p>
-</li>
-<li><p>使用 GitHub、Google 或 Email 註冊（推薦用 GitHub）</p>
-</li>
-</ol>
-<h3>部署</h3>
-<ol>
-<li><p>在 Vercel 首頁，點擊 「Add New...」→「Project」</p>
-</li>
-<li><p>選擇 「Deploy」</p>
-</li>
-<li><p>如果看到 my-static-site，點擊 「Import」</p>
-</li>
-<li><p>在設定頁面：</p>
-</li>
-</ol>
-<ul>
-<li><p>Framework Preset：選擇 Other</p>
-</li>
-<li><p>Root Directory：留空</p>
-</li>
-<li><p>Build Command：輸入 npm run build</p>
-</li>
-<li><p>Output Directory：輸入 dist</p>
-</li>
-</ul>
-<ol start="5">
 <li><p>點擊 「Deploy」</p>
 </li>
-<li><p>等待幾秒鐘，你就會看到一個網址（例如 my-static-site.vercel.app）</p>
-</li>
 </ol>
-<p>🎉 恭喜！你的部落格已經上線了！</p>
-<blockquote>
-<p>Step 10：註冊 Vercel（完成）。部署1.（完成）
-不過沒有看到「Deploy」。是直接拖拉dist資料夾到“You can also drag and drop your project, or choose a file or a folder.”這個區塊嗎？</p>
-</blockquote>
-<p>對的！你完全正確！ 🎉</p>
-<p>在 Vercel 的這個畫面中，「You can also drag and drop your project, or choose a file or a folder」 這個區塊，就是讓你直接上傳 dist 資料夾的地方！</p>
-<h3>部署方式：拖曳上傳（你目前看到的）✅ 最簡單</h3>
-<ol>
-<li><p>找到你的 dist 資料夾（在 my-static-site 裡面）</p>
-</li>
-<li><p>直接用滑鼠拖曳 dist 資料夾到 Vercel 頁面的虛線框內</p>
-</li>
-<li><p>放開滑鼠，Vercel 會自動上傳並部署</p>
-</li>
-<li><p>等待幾秒鐘，你就會得到一個網址！</p>
-</li>
-</ol>
+<p>從現在開始，每次你修改程式碼並推送到 GitHub，Vercel 就會自動重新部署你的網站！</p>
 <hr>
-<h2>Day 5 完成標準</h2>
+<h2>Step 5：進階挑戰（選擇性）</h2>
+<h3>5.1 加入文章分頁</h3>
+<p>如果文章超過 10 篇，加入分頁功能：</p>
+<pre><code>javascript
+const postsPerPage = 10;
+const totalPages = Math.ceil(posts.length / postsPerPage);
+
+for (let page = 1; page &lt;= totalPages; page++) {
+    const start = (page - 1) * postsPerPage;
+    const end = start + postsPerPage;
+    const pagePosts = posts.slice(start, end);
+    // 產生 page-${page}.html
+}
+</code></pre>
+<h3>5.2 加入「相關文章」</h3>
+<p>在文章底部顯示相同標籤的文章：</p>
+<pre><code>javascript
+function getRelatedPosts(currentPost, limit = 3) {
+    const tags = currentPost.tags || [];
+    return posts
+        .filter(p =&gt; p.filename !== currentPost.filename)
+        .filter(p =&gt; p.tags &amp;&amp; p.tags.some(t =&gt; tags.includes(t)))
+        .slice(0, limit);
+}
+</code></pre>
+<hr>
+<h2>Day 6 完成標準</h2>
 <ul>
-<li><p>□ 成功安裝 Node.js</p>
+<li><p>側邊欄有搜尋框，輸入文字能過濾文章</p>
 </li>
-<li><p>□ 成功執行 npm run build 產生 dist/ 資料夾</p>
+<li><p>□ 標籤雲正常顯示，字體大小根據文章數量變化</p>
 </li>
-<li><p>□ dist/ 中有 index.html 和 post1.html、post2.html、post3.html</p>
+<li><p>□ rss.xml 成功產生，內容正確</p>
 </li>
-<li><p>□ 用 Live Server 開啟 dist/index.html 正常顯示</p>
-</li>
-<li><p>□ （進階）成功部署到 Vercel</p>
+<li><p>□ （進階）成功連結 GitHub 和 Vercel，實現自動部署</p>
 </li>
 </ul>
 <hr>
-<h2>你學到了什麼？</h2>
-<table>
-<thead>
-<tr>
-<th>概念</th>
-<th>說明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>靜態網站生成</strong></td>
-<td>在建構時就把內容轉成 HTML，不是執行時</td>
-</tr>
-<tr>
-<td><strong>Node.js 腳本</strong></td>
-<td>用 JavaScript 寫伺服器端程式</td>
-</tr>
-<tr>
-<td><strong>檔案系統操作</strong></td>
-<td><code>fs.readFileSync</code>、<code>fs.writeFileSync</code></td>
-</tr>
-<tr>
-<td><strong>模板引擎</strong></td>
-<td>用 <code>{{變數}}</code> 佔位符，動態填入內容</td>
-</tr>
-<tr>
-<td><strong>部署</strong></td>
-<td>把靜態檔案放到雲端主機上</td>
-</tr>
-</tbody></table>
-<h2>你達成的里程碑</h2>
-<p>回顧這五天的學習，你已經做到了：</p>
+<h2>你現在的技能樹</h2>
+<table border="1">
+  <tr>
+    <th>階段</th>
+    <th>技能</th>
+  </tr>
+  <tr>
+    <td> **Day 1-2** </td>
+    <td> HTML + JavaScript + Markdown 基礎 </td>
+  </tr>
+  <tr>
+    <td> **Day 3-4** </td>
+    <td> 動態載入、Front Matter、自製解析器 </td>
+  </tr>
+  <tr>
+    <td> **Day 5** </td>
+    <td> Node.js 靜態網站生成、部署 </td>
+  </tr>
+  <tr>
+    <td> **Day 6** </td>
+    <td> 進階功能、自動化部署 </td>
+  </tr>
+</table>
+
+<hr>
+<h2>下一步還可以學什麼？</h2>
 <ul>
-<li><p>理解核心概念：內容與版型分離、靜態網站生成。</p>
+<li><p>加入 CSS 框架：例如 Tailwind CSS，讓樣式更漂亮</p>
 </li>
-<li><p>掌握實作工具：使用 Markdown 管理內容、marked.js 解析語法、Node.js 腳本自動化建構。</p>
+<li><p>加入留言功能：使用 Disqus 或 Giscus</p>
 </li>
-<li><p>解決實際問題：獨立處理了 CDN 失效、Windows 執行政策、Vercel 部署等真實開發會遇到的挑戰。</p>
+<li><p>加入 Google Analytics：追蹤網站流量</p>
 </li>
-<li><p>產出最終成果：將你的部落格成功部署到全球網路。</p>
+<li><p>加入圖片優化：自動壓縮圖片、產生 WebP 格式</p>
+</li>
+<li><p>加入深色模式：根據使用者偏好自動切換</p>
 </li>
 </ul>
-<p>這是非常紮實的進步，恭喜你！等網站穩定上線後，你就可以開始用這個流程自由地寫作和發布了。有任何後續問題，隨時可以再問我。</p>
 
     
         </main>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day 04 從文章中自動提取 Front Matter</title>
+    <title>Day 06 進階功能與自動化</title>
     <style>
         * {
             margin: 0;
@@ -211,7 +211,7 @@
     
           <ul class="post-list" id="postList">
             
-            <li class="">
+            <li class="active">
                 <a href="post9.html">
                     Day 06 進階功能與自動化
                     <span class="post-meta">
@@ -238,7 +238,7 @@
                 </a>
             </li>
         
-            <li class="active">
+            <li class="">
                 <a href="post7.html">
                     Day 04 從文章中自動提取 Front Matter
                     <span class="post-meta">
@@ -298,246 +298,284 @@
         <main class="main-content">
             
         <div class="post-header">
-            <h1>Day 04 從文章中自動提取 Front Matter</h1>
-            <div class="post-date">📅 2026-08-12 · ✍️ Kai、deepseek</div>
-            <div class="post-tags"><span>#程式</span> <span>#JavaScript</span> <span>#心得</span></div>
+            <h1>Day 06 進階功能與自動化</h1>
+            <div class="post-date">📅 2026-08-15 · ✍️ Kai、deepseek</div>
+            <div class="post-tags"><span>#工具</span> <span>#GitHub</span> <span>#Vercel</span> <span>#心得</span></div>
         </div>
-        <h1>Day 04 從文章中自動提取 Front Matter</h1>
+        <h1>Day 06 進階功能與自動化</h1>
 <p>今天的目標是：</p>
+<h2>Day 6 的目標</h2>
 <ol>
-<li><p>學習什麼是 Front Matter（文章前面的元資料區塊）</p>
+<li><p>加入文章搜尋功能</p>
 </li>
-<li><p>從 .md 檔案中自動提取標題、日期等資訊</p>
+<li><p>加入標籤雲（Tag Cloud）</p>
 </li>
-<li><p>完全擺脫 posts.json，讓系統自動掃描文章</p>
+<li><p>自動產生 RSS 訂閱</p>
 </li>
-<li><p>實現真正的「內容與資料分離」</p>
+<li><p>設定自動部署（GitHub + Vercel）</p>
 </li>
 </ol>
-<h2>為什麼需要 Front Matter？</h2>
-<p>在 Day 3 中，我們用 posts.json 來管理文章清單，但這樣有幾個問題：</p>
-<ul>
-<li><p>新增文章時，要同時修改 posts.json，容易忘記</p>
-</li>
-<li><p>標題和日期儲存在兩個地方（JSON 和 Markdown），可能不同步</p>
-</li>
-<li><p>不夠「自動化」</p>
-</li>
-</ul>
-<p>Front Matter 解決了這個問題：把文章的所有「元資料」（標題、日期、標籤等）直接寫在 Markdown 檔案的最前面！</p>
-<h2>Step 1：更新所有文章，加入 Front Matter</h2>
-<p>修改你的文章檔案，在最前面加入 --- 區塊：</p>
-<p>posts/post1.md</p>
-<p>posts/post2.md</p>
-<p>posts/post3.md</p>
-<h2>Step 2：安裝 Front Matter 解析套件</h2>
-<p>我們需要一個套件來解析 Front Matter。這次用 gray-matter。</p>
-<p>在 index.html 中加入（放在 marked.js 之後）：</p>
+<hr>
+<h2>Step 1：加入文章搜尋功能</h2>
+<p>在 src/templates/layout.html 中，在側邊欄加入搜尋框：</p>
 <pre><code>html
-
-&lt;!-- 引入 Front Matter 解析套件 --&gt;
-&lt;script src=&quot;https://cdn.jsdelivr.net/npm/gray-matter@4.0.3/dist/gray-matter.min.js&quot;&gt;&lt;/script&gt;
+&lt;aside class=&quot;sidebar&quot;&gt;
+    &lt;h2&gt;📚 文章列表&lt;/h2&gt;
+    
+    &lt;!-- 新增搜尋框 --&gt;
+    &lt;div style=&quot;margin-bottom: 15px;&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;searchInput&quot; placeholder=&quot;🔍 搜尋文章...&quot; 
+               style=&quot;width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px;&quot;&gt;
+    &lt;/div&gt;
+    
+    &lt;ul class=&quot;post-list&quot; id=&quot;postList&quot;&gt;
+        {{postList}}
+    &lt;/ul&gt;
+&lt;/aside&gt;
 </code></pre>
-<blockquote>
-<p>Step 2：安裝 Front Matter 解析套件。這是一個程式的安裝？或只是在 index.html 中插入  <!-- 引入 Front Matter 解析套件 --><script src="https://cdn.jsdelivr.net/npm/gray-matter@4.0.3/dist/gray-matter.min.js"></script></p>
-</blockquote>
-<p>非常好的問題！這正是很多初學者會混淆的地方。讓我詳細解釋：</p>
-<p>直接回答
-這不是傳統意義的「安裝軟體」，而是在你的網頁中「引入一個外部的 JavaScript 程式庫」。</p>
-<p>你做的完全正確——就是在 index.html 中插入那行 <script> 標籤！</p>
-<blockquote>
-<p>如果我直接下載gray-matter.min.js檔, 並置於根目錄。並在適當的位置插入  <script src="./gray-matter.min.js"></script> 。是不是可行？</p>
-</blockquote>
-<p>完全可行！而且這是非常好的想法！ 👍</p>
-<p>這樣做不僅可行，還有幾個優點。讓我詳細說明：</p>
-<p>直接回答
-是的，完全可行！ 而且這正是「將依賴下載到本地」的標準做法。</p>
-<h2>Step 3：建立全新的 index.html（自動掃描版本）</h2>
-<p>這次我們完全移除 posts.json，改成「動態掃描」文章。</p>
-<h2>Step 4：測試成果</h2>
-<p>用 Live Server 打開 index.html，你應該會看到：</p>
-<ol>
-<li><p>文章列表顯示所有文章標題、日期和標籤</p>
-</li>
-<li><p>文章內容自動顯示標題、作者、日期和標籤</p>
-</li>
-<li><p>新增文章時，只需：</p>
-</li>
-</ol>
-<ul>
-<li><p>在 posts/ 資料夾新增 .md 檔案</p>
-</li>
-<li><p>在 postFiles 陣列中加入檔名</p>
-</li>
-<li><p>不需要再維護 posts.json</p>
-</li>
-</ul>
-<h2>今天學到的關鍵觀念</h2>
-<ol>
-<li>Front Matter</li>
-</ol>
-<ul>
-<li><p>用 --- 分隔的 YAML 格式區塊</p>
-</li>
-<li><p>放在 Markdown 檔案最前面</p>
-</li>
-<li><p>用來儲存文章的「元資料」（標題、日期、標籤等）</p>
-</li>
-</ul>
-<ol start="2">
-<li>gray-matter 套件</li>
-</ol>
-<ul>
-<li><p>解析 Front Matter 區塊</p>
-</li>
-<li><p>回傳 <code>{ data: {...}, content: &#39;...&#39; }</code></p>
-</li>
-<li><p>data 是解析後的資料，content 是純 Markdown 內容</p>
-</li>
-</ul>
-<ol start="3">
-<li>Promise.all()</li>
-</ol>
-<ul>
-<li><p>同時載入多個檔案</p>
-</li>
-<li><p>等待所有檔案都載入完成後才繼續</p>
-</li>
-<li><p>提高載入效率</p>
-</li>
-</ul>
-<ol start="4">
-<li>資料驅動 UI</li>
-</ol>
-<ul>
-<li><p>文章資料儲存在 postsData 陣列中</p>
-</li>
-<li><p>UI 根據資料動態渲染</p>
-</li>
-<li><p>資料變更時，UI 自動更新</p>
-</li>
-</ul>
-<h2>今天的作業（Day 4 完成標準）</h2>
-<ul>
-<li><p>所有文章都加上 Front Matter（標題、日期、標籤、作者）</p>
-</li>
-<li><p>成功安裝並使用 gray-matter</p>
-</li>
-<li><p>文章列表顯示標題、日期和標籤</p>
-</li>
-<li><p>文章內容顯示標題、作者、日期和標籤</p>
-</li>
-<li><p>新增第 4 篇文章，只需在 postFiles 加入檔名，不需要修改 JSON</p>
-</li>
-</ul>
-<blockquote>
-<p>今天經過了無數次的失敗。失敗的原因為以下：</p>
-<ol>
-<li>deepseek 提供之 CDN 引入失敗。</li>
-<li>提供之 js 檔無法下載。</li>
-</ol>
-</blockquote>
-<blockquote>
-<p>最終已經成功。經過這一段時間的失敗,我們嘗試了三種方案。以下是我的理解,請幫我看看是否正確。</p>
-<ol>
-<li>外部CDN：網頁html只會加入一行較為簡潔,外部CDN可能會自行升級我方不必理會；但有外部失聯間接造成我方網站癱瘓的可能。</li>
-<li>下載js到根目錄：最穩定,但程式碼過長。</li>
-<li>目前成功的方案：我不太理解,請簡單說明。</li>
-</ol>
-</blockquote>
-<p>恭喜你成功！🎉 你的理解非常正確，而且能歸納出這三個方案的重點，代表你已經掌握核心觀念了。我來幫你補充和確認：</p>
-<h3>方案 1：外部 CDN</h3>
-<pre><code>html
-&lt;script src=&quot;https://cdn.jsdelivr.net/npm/marked/marked.min.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-<p>你說的都對：</p>
-<ul>
-<li><p>✅ 程式碼簡潔（一行搞定）</p>
-</li>
-<li><p>✅ 會自動升級（但可能造成版本不相容）</p>
-</li>
-<li><p>✅ 外部失聯會讓網站癱瘓</p>
-</li>
-</ul>
-<p>補充一點：</p>
-<ul>
-<li><p>CDN 還有「速度快」的優點，因為全球都有伺服器</p>
-</li>
-<li><p>適合用於大型專案或學習階段（方便快速）</p>
-</li>
-</ul>
-<h3>方案 2：下載到本地</h3>
-<pre><code>html
-&lt;script src=&quot;./gray-matter.min.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-<p>你說的都對：</p>
-<ul>
-<li><p>✅ 最穩定（完全自給自足）</p>
-</li>
-<li><p>✅ 程式碼過長（下載的 .js 檔案可能很大）</p>
-</li>
-</ul>
-<p>補充一點：</p>
-<ul>
-<li><p>下載一次後，永遠不需要網路就能運作</p>
-</li>
-<li><p>適合用於正式上線的網站或內部系統</p>
-</li>
-</ul>
-<h3>方案 3：自製解析器（你目前成功的方案）</h3>
-<p>這是我幫你寫的這段程式碼：</p>
+<p>然後在 build.js 中，在 generatePostList 函數中加入搜尋功能的 JavaScript：</p>
 <pre><code>javascript
-function parseFrontMatter(content) {
-    // 檢查是否以 --- 開頭
-    if (!content.trim().startsWith(&#39;---&#39;)) {
-        return { data: {}, content: content };
+function generatePostList(currentPostFile = null) {
+    let html = &#39;&#39;;
+    for (const post of posts) {
+        // ... 原本的程式碼 ...
     }
-    // ... 後續解析邏輯
+    
+    // 加入搜尋功能的 JavaScript（只加在 index.html）
+    if (currentPostFile === null) {
+        html += `
+        &lt;script&gt;
+            document.getElementById(&#39;searchInput&#39;).addEventListener(&#39;input&#39;, function() {
+                const query = this.value.toLowerCase();
+                const items = document.querySelectorAll(&#39;#postList li&#39;);
+                items.forEach(item =&gt; {
+                    const text = item.textContent.toLowerCase();
+                    item.style.display = text.includes(query) ? &#39;&#39; : &#39;none&#39;;
+                });
+            });
+        &lt;/script&gt;
+        `;
+    }
+    
+    return html;
 }
 </code></pre>
-<h3>方案 3 的簡單說明（白話版）</h3>
-<h4>這到底是什麼？</h4>
-<p>就是「我自己寫一個小工具，來代替 gray-matter.js 的功能」。</p>
-<p>就像：</p>
+<hr>
+<h2>Step 2：加入標籤雲</h2>
+<p>在 build.js 中，加入標籤統計功能：</p>
+<pre><code>javascript
+// 在 posts 載入完成後加入
+function generateTagCloud() {
+    const tagCount = {};
+    for (const post of posts) {
+        if (post.tags) {
+            for (const tag of post.tags) {
+                tagCount[tag] = (tagCount[tag] || 0) + 1;
+            }
+        }
+    }
+    
+    let html = &#39;&lt;div class=&quot;tag-cloud&quot;&gt;&#39;;
+    for (const [tag, count] of Object.entries(tagCount)) {
+        const size = 12 + count * 4; // 根據文章數量調整字體大小
+        html += `&lt;span style=&quot;font-size: ${size}px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;&quot;&gt;#${tag} (${count})&lt;/span&gt;`;
+    }
+    html += &#39;&lt;/div&gt;&#39;;
+    return html;
+}
+
+// 在 index.html 生成時加入
+const tagCloudHtml = generateTagCloud();
+const finalHtml = layoutTemplate
+    .replace(/{{title}}/g, &#39;我的部落格&#39;)
+    .replace(&#39;{{postList}}&#39;, postListHtml + tagCloudHtml)
+    .replace(&#39;{{content}}&#39;, homeContent);
+</code></pre>
+<hr>
+<h2>Step 3：自動產生 RSS 訂閱</h2>
+<p>建立一個新的模板檔案 src/templates/rss.xml：</p>
+<pre><code>xml
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;rss version=&quot;2.0&quot; xmlns:atom=&quot;http://www.w3.org/2005/Atom&quot;&gt;
+    &lt;channel&gt;
+        &lt;title&gt;我的部落格&lt;/title&gt;
+        &lt;link&gt;https://your-site.vercel.app&lt;/link&gt;
+        &lt;description&gt;使用 Markdown 生成的靜態部落格&lt;/description&gt;
+        &lt;language&gt;zh-tw&lt;/language&gt;
+        &lt;lastBuildDate&gt;{{lastBuildDate}}&lt;/lastBuildDate&gt;
+        &lt;atom:link href=&quot;https://your-site.vercel.app/rss.xml&quot; rel=&quot;self&quot; type=&quot;application/rss+xml&quot;/&gt;
+        
+        {{items}}
+    &lt;/channel&gt;
+&lt;/rss&gt;
+</code></pre>
+<p>在 build.js 中產生 RSS：</p>
+<pre><code>javascript
+// 產生 RSS
+function generateRSS() {
+    const now = new Date().toUTCString();
+    let itemsHtml = &#39;&#39;;
+    
+    for (const post of posts.slice(0, 10)) { // 只顯示最近10篇
+        const pubDate = new Date(post.date).toUTCString();
+        const link = `https://your-site.vercel.app/${post.filename.replace(&#39;.md&#39;, &#39;.html&#39;)}`;
+        
+        itemsHtml += `
+        &lt;item&gt;
+            &lt;title&gt;${post.title}&lt;/title&gt;
+            &lt;link&gt;${link}&lt;/link&gt;
+            &lt;guid&gt;${link}&lt;/guid&gt;
+            &lt;pubDate&gt;${pubDate}&lt;/pubDate&gt;
+            &lt;description&gt;&lt;![CDATA[${post.html.substring(0, 200)}...]]&gt;&lt;/description&gt;
+        &lt;/item&gt;
+        `;
+    }
+    
+    const rssContent = fs.readFileSync(
+        path.join(__dirname, &#39;src&#39;, &#39;templates&#39;, &#39;rss.xml&#39;),
+        &#39;utf-8&#39;
+    ).replace(&#39;{{lastBuildDate}}&#39;, now).replace(&#39;{{items}}&#39;, itemsHtml);
+    
+    fs.writeFileSync(path.join(distDir, &#39;rss.xml&#39;), rssContent);
+    console.log(&#39;  ✅ rss.xml&#39;);
+}
+
+// 在 build 流程中加入
+generateRSS();
+</code></pre>
+<hr>
+<h2>Step 4：設定自動部署（GitHub + Vercel）</h2>
+<h3>4.1 建立 GitHub 倉庫</h3>
+<ol>
+<li><p>前往 <a href="https://github.com/new">https://github.com/new</a></p>
+</li>
+<li><p>倉庫名稱輸入 my-static-site</p>
+</li>
+<li><p>選擇「Public」（公開）</p>
+</li>
+<li><p>點擊「Create repository」</p>
+</li>
+</ol>
+<h3>4.2 上傳程式碼到 GitHub</h3>
+<p>在 VS Code 終端機中執行：</p>
+<pre><code>bash
+# 初始化 Git
+git init
+
+# 加入所有檔案
+git add .
+
+# 提交
+git commit -m &quot;Initial commit&quot;
+
+# 連結到 GitHub（把 YOUR_USERNAME 換成你的帳號）
+git remote add origin https://github.com/YOUR_USERNAME/my-static-site.git
+
+# 推送到 GitHub
+git branch -M main
+git push -u origin main
+</code></pre>
+<h3>4.3 連結 Vercel 與 GitHub</h3>
+<ol>
+<li><p>回到 Vercel 儀表板</p>
+</li>
+<li><p>點擊 「Add New...」→「Project」</p>
+</li>
+<li><p>選擇 「GitHub」</p>
+</li>
+<li><p>找到 my-static-site 倉庫</p>
+</li>
+<li><p>點擊 「Import」</p>
+</li>
+<li><p>設定：</p>
+</li>
+<li><p>Framework Preset：Other</p>
+</li>
+<li><p>Build Command：npm run build</p>
+</li>
+<li><p>Output Directory：dist</p>
+</li>
+<li><p>點擊 「Deploy」</p>
+</li>
+</ol>
+<p>從現在開始，每次你修改程式碼並推送到 GitHub，Vercel 就會自動重新部署你的網站！</p>
+<hr>
+<h2>Step 5：進階挑戰（選擇性）</h2>
+<h3>5.1 加入文章分頁</h3>
+<p>如果文章超過 10 篇，加入分頁功能：</p>
+<pre><code>javascript
+const postsPerPage = 10;
+const totalPages = Math.ceil(posts.length / postsPerPage);
+
+for (let page = 1; page &lt;= totalPages; page++) {
+    const start = (page - 1) * postsPerPage;
+    const end = start + postsPerPage;
+    const pagePosts = posts.slice(start, end);
+    // 產生 page-${page}.html
+}
+</code></pre>
+<h3>5.2 加入「相關文章」</h3>
+<p>在文章底部顯示相同標籤的文章：</p>
+<pre><code>javascript
+function getRelatedPosts(currentPost, limit = 3) {
+    const tags = currentPost.tags || [];
+    return posts
+        .filter(p =&gt; p.filename !== currentPost.filename)
+        .filter(p =&gt; p.tags &amp;&amp; p.tags.some(t =&gt; tags.includes(t)))
+        .slice(0, limit);
+}
+</code></pre>
+<hr>
+<h2>Day 6 完成標準</h2>
 <ul>
-<li><p>原本你要喝果汁，需要買一台果汁機（gray-matter.js）</p>
+<li><p>側邊欄有搜尋框，輸入文字能過濾文章</p>
 </li>
-<li><p>但果汁機缺貨（CDN 失效）</p>
+<li><p>□ 標籤雲正常顯示，字體大小根據文章數量變化</p>
 </li>
-<li><p>於是你用手和濾網把果汁擠出來（自己寫解析器）</p>
+<li><p>□ rss.xml 成功產生，內容正確</p>
+</li>
+<li><p>□ （進階）成功連結 GitHub 和 Vercel，實現自動部署</p>
 </li>
 </ul>
-<h4>它是怎麼運作的？</h4>
-<ol>
-<li><p>讀取 Markdown 檔案內容（例如 post1.md）</p>
+<hr>
+<h2>你現在的技能樹</h2>
+<table border="1">
+  <tr>
+    <th>階段</th>
+    <th>技能</th>
+  </tr>
+  <tr>
+    <td> **Day 1-2** </td>
+    <td> HTML + JavaScript + Markdown 基礎 </td>
+  </tr>
+  <tr>
+    <td> **Day 3-4** </td>
+    <td> 動態載入、Front Matter、自製解析器 </td>
+  </tr>
+  <tr>
+    <td> **Day 5** </td>
+    <td> Node.js 靜態網站生成、部署 </td>
+  </tr>
+  <tr>
+    <td> **Day 6** </td>
+    <td> 進階功能、自動化部署 </td>
+  </tr>
+</table>
+
+<hr>
+<h2>下一步還可以學什麼？</h2>
+<ul>
+<li><p>加入 CSS 框架：例如 Tailwind CSS，讓樣式更漂亮</p>
 </li>
-<li><p>找 --- 標記：</p>
+<li><p>加入留言功能：使用 Disqus 或 Giscus</p>
 </li>
-</ol>
-<pre><code>text
----          ← 第一個 ---
-title: 我的第一篇文章
-date: 2026-08-10
-tags: [生活, 心得]
----          ← 第二個 ---
-# 我的第一篇文章    ← 真正的文章內容
-</code></pre>
-<ol start="3">
-<li><p>把中間的部分抓出來（title、date、tags）</p>
+<li><p>加入 Google Analytics：追蹤網站流量</p>
 </li>
-<li><p>解析成 JavaScript 物件：</p>
+<li><p>加入圖片優化：自動壓縮圖片、產生 WebP 格式</p>
 </li>
-</ol>
-<pre><code>javascript
-{
-    title: &#39;我的第一篇文章&#39;,
-    date: &#39;2026-08-10&#39;,
-    tags: [&#39;生活&#39;, &#39;心得&#39;]
-}
-</code></pre>
-<ol start="5">
-<li>剩下的內容（# 我的第一篇文章...）就交給 marked.js 轉成 HTML</li>
-</ol>
+<li><p>加入深色模式：根據使用者偏好自動切換</p>
+</li>
+</ul>
 
     
         </main>

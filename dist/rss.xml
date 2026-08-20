@@ -5,9 +5,30 @@
         <link>https://your-site.vercel.app</link>
         <description>使用 Markdown 生成的靜態部落格</description>
         <language>zh-tw</language>
-        <lastBuildDate>Thu, 20 Aug 2026 10:10:03 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 20 Aug 2026 10:40:25 GMT</lastBuildDate>
         <atom:link href="https://your-site.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
         
+        
+        <item>
+            <title>Day 06 進階功能與自動化</title>
+            <link>https://your-site.vercel.app/post9.html</link>
+            <guid>https://your-site.vercel.app/post9.html</guid>
+            <pubDate>Sat, 15 Aug 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[<h1>Day 06 進階功能與自動化</h1>
+<p>今天的目標是：</p>
+<h2>Day 6 的目標</h2>
+<ol>
+<li><p>加入文章搜尋功能</p>
+</li>
+<li><p>加入標籤雲（Tag Cloud）</p>
+</li>
+<li><p>自動產生 RSS 訂閱</p>
+</li>
+<li><p>設定自動部署（GitHub + Vercel）</p>
+</li>
+</ol>
+...]]></description>
+        </item>
         
         <item>
             <title>Day 05 靜態網站生成器（Static Site Generator）與部署</title>
