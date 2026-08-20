@@ -228,6 +228,21 @@ for (const post of posts) {
 }
 
 // ============================================================
+// 如果文章超過 10 篇，加入分頁功能
+// ============================================================
+
+const postsPerPage = 10;
+const totalPages = Math.ceil(posts.length / postsPerPage);
+
+for (let page = 1; page <= totalPages; page++) {
+    const start = (page - 1) * postsPerPage;
+    const end = start + postsPerPage;
+    const pagePosts = posts.slice(start, end);
+    // 產生 page-${page}.html
+}
+
+
+// ============================================================
 // 產生首頁（顯示最新文章）
 // ============================================================
 console.log('🏠 產生首頁...');
