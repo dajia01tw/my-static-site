@@ -308,8 +308,7 @@ ___
 
 　.
 
-<script>
-    <style>
+<style>
 table {
   border-collapse: collapse;
   width: 100%;
@@ -322,8 +321,8 @@ table, th, td {
 th, td {
   padding: 8px;
 }
-    </style>
-</script>
+</style>
+
 
 | 階段 | 技能 |
 | ---- | ---- |

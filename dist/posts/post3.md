@@ -326,6 +326,115 @@ markdown
 | :--- | :---: | ---: |
 | A | B | C |
 
+> Markdown 表格語法是正確的，但沒有隔線（框線），為什麼？
+
+#### Markdown 表格本來就沒有外框線（border）
+
+標準 Markdown（包含 GitHub、GitLab、VS Code、Typora 等）渲染表格時，只會顯示表格的欄位分隔，不會顯示外框線。
+
+👉 這是正常的，GitHub Markdown 不會顯示格線邊框。
+
+#### 如果你想要「真的有格線」的表格（有邊框）
+
+Markdown 本身不支援表格邊框，你需要用 HTML table。
+
+例如：
+
+```
+Html
+<table border="1">
+  <tr>
+    <th>標題一</th>
+    <th>標題二</th>
+    <th>標題三</th>
+  </tr>
+  <tr>
+    <td>內容 1</td>
+    <td>內容 2</td>
+    <td>內容 3</td>
+  </tr>
+  <tr>
+    <td>內容 4</td>
+    <td>內容 5</td>
+    <td>內容 6</td>
+  </tr>
+</table>
+```
+
+👉 GitHub、GitLab、Typora 都能渲染出有格線的表格。
+
+> CSS 可以直接寫在 md 檔裡嗎？
+
+#### CSS 不能直接寫在 .md 裡，Markdown 本身不支援嵌入 CSS。
+
+標準 Markdown 不允許：
+
+```
+Html
+<style>
+table { border: 1px solid red; }
+</style>
+```
+
+大多數渲染器（GitHub、Vercel、Next.js MDX）會直接忽略它。
+
+#### 但你可以用兩種方式讓 CSS 在 md 中生效
+
+**方法 A：改用 .mdx（最推薦）**
+
+如果你把 .md 改成 .mdx，你就能在檔案裡寫 <style>。
+
+例如：
+
+```
+Mdx
+<style>
+table {
+  border-collapse: collapse;
+}
+table, th, td {
+  border: 1px solid #ccc;
+}
+</style>
+
+# 我的表格
+
+| 標題一 | 標題二 | 標題三 |
+|--------|--------|--------|
+| 內容 1 | 內容 2 | 內容 3 |
+| 內容 4 | 內容 5 | 內容 6 |
+```
+
+👉 MDX 支援 HTML + JSX，所以 <style> 可以直接用。  
+
+👉 適用：Next.js + MDX、Astro + MDX、Vercel 部署都 OK。
+
+**方法 B：在 Markdown 裡寫 HTML <table> + inline style**
+
+Markdown 本身不能寫 CSS，但 HTML 可以寫 inline style。
+
+例如：
+
+```
+Html
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 1px solid #ccc; padding: 8px;">標題一</th>
+    <th style="border: 1px solid #ccc; padding: 8px;">標題二</th>
+    <th style="border: 1px solid #ccc; padding: 8px;">標題三</th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #ccc; padding: 8px;">內容 1</td>
+    <td style="border: 1px solid #ccc; padding: 8px;">內容 2</td>
+    <td style="border: 1px solid #ccc; padding: 8px;">內容 3</td>
+  </tr>
+</table>
+```
+
+👉 這可以寫在 .md 裡，GitHub + Vercel 都能渲染。  
+
+👉 缺點：要手動寫很多 style=""。
+
 ___
 
 ## 初學者最常犯的 5 個錯誤（立刻修正）

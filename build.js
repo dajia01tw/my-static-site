@@ -227,20 +227,6 @@ for (const post of posts) {
     console.log(`  ✅ ${outputFile}`);
 }
 
-// ============================================================
-// 如果文章超過 5 篇，加入分頁功能
-// ============================================================
-
-const postsPerPage = 5;
-const totalPages = Math.ceil(posts.length / postsPerPage);
-
-for (let page = 1; page <= totalPages; page++) {
-    const start = (page - 1) * postsPerPage;
-    const end = start + postsPerPage;
-    const pagePosts = posts.slice(start, end);
-    // 產生 page-${page}.html
-}
-
 
 // ============================================================
 // 產生首頁（顯示最新文章）
@@ -312,6 +298,21 @@ const finalHtml = layoutTemplate
 
 fs.writeFileSync(path.join(distDir, 'index.html'), finalHtml);
 console.log('  ✅ index.html');
+
+
+// ============================================================
+// 如果文章超過 5 篇，加入分頁功能
+// ============================================================
+
+const postsPerPage = 5;
+const totalPages = Math.ceil(posts.length / postsPerPage);
+
+for (let page = 1; page <= totalPages; page++) {
+    const start = (page - 1) * postsPerPage;
+    const end = start + postsPerPage;
+    const pagePosts = posts.slice(start, end);
+    // 產生 page-${page}.html
+}
 
 // ============================================================
 // 複製文章 .md 檔案到 dist（可選，方便查看原始碼）

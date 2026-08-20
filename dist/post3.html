@@ -553,6 +553,88 @@ ___
 <td align="right">C</td>
 </tr>
 </tbody></table>
+<blockquote>
+<p>Markdown 表格語法是正確的，但沒有隔線（框線），為什麼？</p>
+</blockquote>
+<h4>Markdown 表格本來就沒有外框線（border）</h4>
+<p>標準 Markdown（包含 GitHub、GitLab、VS Code、Typora 等）渲染表格時，只會顯示表格的欄位分隔，不會顯示外框線。</p>
+<p>👉 這是正常的，GitHub Markdown 不會顯示格線邊框。</p>
+<h4>如果你想要「真的有格線」的表格（有邊框）</h4>
+<p>Markdown 本身不支援表格邊框，你需要用 HTML table。</p>
+<p>例如：</p>
+<pre><code>Html
+&lt;table border=&quot;1&quot;&gt;
+  &lt;tr&gt;
+    &lt;th&gt;標題一&lt;/th&gt;
+    &lt;th&gt;標題二&lt;/th&gt;
+    &lt;th&gt;標題三&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;內容 1&lt;/td&gt;
+    &lt;td&gt;內容 2&lt;/td&gt;
+    &lt;td&gt;內容 3&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;內容 4&lt;/td&gt;
+    &lt;td&gt;內容 5&lt;/td&gt;
+    &lt;td&gt;內容 6&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p>👉 GitHub、GitLab、Typora 都能渲染出有格線的表格。</p>
+<blockquote>
+<p>CSS 可以直接寫在 md 檔裡嗎？</p>
+</blockquote>
+<h4>CSS 不能直接寫在 .md 裡，Markdown 本身不支援嵌入 CSS。</h4>
+<p>標準 Markdown 不允許：</p>
+<pre><code>Html
+&lt;style&gt;
+table { border: 1px solid red; }
+&lt;/style&gt;
+</code></pre>
+<p>大多數渲染器（GitHub、Vercel、Next.js MDX）會直接忽略它。</p>
+<h4>但你可以用兩種方式讓 CSS 在 md 中生效</h4>
+<p><strong>方法 A：改用 .mdx（最推薦）</strong></p>
+<p>如果你把 .md 改成 .mdx，你就能在檔案裡寫 <style>。</p>
+<p>例如：</p>
+<pre><code>Mdx
+&lt;style&gt;
+table {
+  border-collapse: collapse;
+}
+table, th, td {
+  border: 1px solid #ccc;
+}
+&lt;/style&gt;
+
+# 我的表格
+
+| 標題一 | 標題二 | 標題三 |
+|--------|--------|--------|
+| 內容 1 | 內容 2 | 內容 3 |
+| 內容 4 | 內容 5 | 內容 6 |
+</code></pre>
+<p>👉 MDX 支援 HTML + JSX，所以 <style> 可以直接用。  </p>
+<p>👉 適用：Next.js + MDX、Astro + MDX、Vercel 部署都 OK。</p>
+<p><strong>方法 B：在 Markdown 裡寫 HTML <table> + inline style</strong></p>
+<p>Markdown 本身不能寫 CSS，但 HTML 可以寫 inline style。</p>
+<p>例如：</p>
+<pre><code>Html
+&lt;table style=&quot;border-collapse: collapse; width: 100%;&quot;&gt;
+  &lt;tr&gt;
+    &lt;th style=&quot;border: 1px solid #ccc; padding: 8px;&quot;&gt;標題一&lt;/th&gt;
+    &lt;th style=&quot;border: 1px solid #ccc; padding: 8px;&quot;&gt;標題二&lt;/th&gt;
+    &lt;th style=&quot;border: 1px solid #ccc; padding: 8px;&quot;&gt;標題三&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style=&quot;border: 1px solid #ccc; padding: 8px;&quot;&gt;內容 1&lt;/td&gt;
+    &lt;td style=&quot;border: 1px solid #ccc; padding: 8px;&quot;&gt;內容 2&lt;/td&gt;
+    &lt;td style=&quot;border: 1px solid #ccc; padding: 8px;&quot;&gt;內容 3&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p>👉 這可以寫在 .md 裡，GitHub + Vercel 都能渲染。  </p>
+<p>👉 缺點：要手動寫很多 style=&quot;&quot;。</p>
 <hr>
 <h2>初學者最常犯的 5 個錯誤（立刻修正）</h2>
 <p>我教過數百人 Markdown。這五個錯誤每次都會出現。現在學會它們，省下數小時的挫折。</p>
