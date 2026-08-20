@@ -405,11 +405,11 @@ table, th, td {
 | 內容 4 | 內容 5 | 內容 6 |
 ```
 
-👉 MDX 支援 HTML + JSX，所以 <style> 可以直接用。  
+👉 MDX 支援 HTML + JSX，所以 `<style>` 可以直接用。  
 
 👉 適用：Next.js + MDX、Astro + MDX、Vercel 部署都 OK。
 
-**方法 B：在 Markdown 裡寫 HTML <table> + inline style**
+**方法 B：在 Markdown 裡寫 HTML `<table>` + inline style**
 
 Markdown 本身不能寫 CSS，但 HTML 可以寫 inline style。
 
