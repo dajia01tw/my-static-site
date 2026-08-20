@@ -5,7 +5,7 @@
         <link>https://your-site.vercel.app</link>
         <description>使用 Markdown 生成的靜態部落格</description>
         <language>zh-tw</language>
-        <lastBuildDate>Wed, 19 Aug 2026 12:37:48 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 20 Aug 2026 01:57:59 GMT</lastBuildDate>
         <atom:link href="https://your-site.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
         
         
@@ -50,6 +50,24 @@
 <h2>Step 1：建立專案資料夾</h2>
 <p>在你的電腦桌面新增一個資料夾，命名為 my-markdown-site，然後用 VS Code 打開它。</p>
 <h2>Step 2：建立 index.html</h...]]></description>
+        </item>
+        
+        <item>
+            <title>Day 02 把 Markdown 內容分離到獨立檔案</title>
+            <link>https://your-site.vercel.app/post5.html</link>
+            <guid>https://your-site.vercel.app/post5.html</guid>
+            <pubDate>Mon, 10 Aug 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[<h1>Day 02 把 Markdown 內容分離到獨立檔案</h1>
+<p>今天的目標是：</p>
+<ol>
+<li><p>建立一個獨立的 .md 檔案</p>
+</li>
+<li><p>用 JavaScript 的 fetch() 去讀取它</p>
+</li>
+<li><p>再把讀到的內容用 marked.parse() 轉換成 HTML</p>
+</li>
+</ol>
+<h2>Step 1...]]></description>
         </item>
         
         <item>
