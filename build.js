@@ -301,17 +301,75 @@ console.log('  ✅ index.html');
 
 
 // ============================================================
-// 如果文章超過 5 篇，加入分頁功能
+// 🆕 新增：產生分頁（文章超過 5 篇時）
 // ============================================================
-
 const postsPerPage = 5;
 const totalPages = Math.ceil(posts.length / postsPerPage);
 
-for (let page = 1; page <= totalPages; page++) {
-    const start = (page - 1) * postsPerPage;
-    const end = start + postsPerPage;
-    const pagePosts = posts.slice(start, end);
-    // 產生 page-${page}.html
+if (totalPages > 1) {
+    console.log(`📑 產生 ${totalPages} 個分頁...`);
+    
+    for (let page = 1; page <= totalPages; page++) {
+        const start = (page - 1) * postsPerPage;
+        const end = start + postsPerPage;
+        const pagePosts = posts.slice(start, end);
+        
+        // 產生該頁的文章列表
+        let pagePostListHtml = '';
+        for (const post of pagePosts) {
+            const link = post.filename.replace('.md', '.html');
+            let tagsHtml = '';
+            if (post.tags && post.tags.length > 0) {
+                tagsHtml = post.tags.map(tag =>
+                    `<span class="post-tag">#${tag}</span>`
+                ).join(' ');
+            }
+            
+            pagePostListHtml += `
+                <li>
+                    <a href="${link}">
+                        ${post.title}
+                        <span class="post-meta">
+                            ${post.date} ${tagsHtml}
+                        </span>
+                    </a>
+                </li>
+            `;
+        }
+        
+        // 加入分頁導航（上一頁 / 下一頁）
+        let paginationHtml = '<div style="margin-top: 20px; text-align: center;">';
+        if (page > 1) {
+            paginationHtml += `<a href="page-${page-1}.html">⬅ 上一頁</a>`;
+        }
+        paginationHtml += ` <span style="margin: 0 15px;">第 ${page} / ${totalPages} 頁</span> `;
+        if (page < totalPages) {
+            paginationHtml += `<a href="page-${page+1}.html">下一頁 ➡</a>`;
+        }
+        paginationHtml += '</div>';
+        
+        // 組裝頁面內容
+        const pageContentHtml = `
+            <div class="post-header">
+                <h1>📄 文章列表 - 第 ${page} 頁</h1>
+            </div>
+            <ul class="post-list" style="list-style: none; padding: 0;">
+                ${pagePostListHtml}
+            </ul>
+            ${paginationHtml}
+        `;
+        
+        // 使用布局模板
+        const pageHtml = layoutTemplate
+            .replace(/{{title}}/g, `文章列表 - 第 ${page} 頁`)
+            .replace('{{postList}}', '') // 分頁頁面不需要側邊欄文章列表
+            .replace('{{content}}', pageContentHtml);
+        
+        // 寫入檔案
+        const pageFileName = page === 1 ? 'index.html' : `page-${page}.html`;
+        fs.writeFileSync(path.join(distDir, pageFileName), pageHtml);
+        console.log(`  ✅ ${pageFileName}`);
+    }
 }
 
 // ============================================================
