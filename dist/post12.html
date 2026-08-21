@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day 03 建立多篇文章與動態目錄</title>
+    <title>Day 00 「內容與版型分離」的網站製作學習大綱</title>
     <style>
         * {
             margin: 0;
@@ -274,7 +274,7 @@
                 </a>
             </li>
         
-            <li class="active">
+            <li class="">
                 <a href="post6.html">
                     Day 03 建立多篇文章與動態目錄
                     <span class="post-meta">
@@ -292,7 +292,7 @@
                 </a>
             </li>
         
-            <li class="">
+            <li class="active">
                 <a href="post12.html">
                     Day 00 「內容與版型分離」的網站製作學習大綱
                     <span class="post-meta">
@@ -309,143 +309,119 @@
         <main class="main-content">
             
         <div class="post-header">
-            <h1>Day 03 建立多篇文章與動態目錄</h1>
-            <div class="post-date">📅 2026-08-11 · ✍️ Kai、deepseek</div>
-            <div class="post-tags"><span>#程式</span> <span>#JavaScript</span> <span>#心得</span></div>
+            <h1>Day 00 「內容與版型分離」的網站製作學習大綱</h1>
+            <div class="post-date">📅 2026-08-10 · ✍️ Kai, deepseek</div>
+            <div class="post-tags"><span>#網站</span> <span>#心得</span></div>
         </div>
-        <h1>Day 03 建立多篇文章與動態目錄</h1>
-<p>今天的目標是：</p>
-<ol>
-<li><p>建立多個 Markdown 文章檔案</p>
-</li>
-<li><p>建立一個「文章清單」（用 JSON 檔案管理）</p>
-</li>
-<li><p>讓首頁動態顯示所有文章標題</p>
-</li>
-<li><p>點擊標題時，載入並顯示對應文章</p>
-</li>
-</ol>
-<h2>Step 1：建立文章資料夾與多篇內容</h2>
-<p>在你的 my-markdown-site 資料夾中，建立一個新資料夾叫 posts。</p>
-<p>在 posts 資料夾中，建立三篇文章：</p>
-<p>posts/post1.md</p>
-<p>posts/post2.md</p>
-<p>posts/post3.md</p>
-<h2>Step 2：建立文章清單 JSON 檔案</h2>
-<p>在 my-markdown-site 資料夾根目錄，建立一個 posts.json 檔案：</p>
-<pre><code>json
-[
-    {
-        &quot;id&quot;: &quot;post1&quot;,
-        &quot;title&quot;: &quot;我的第一篇文章&quot;,
-        &quot;date&quot;: &quot;2026-08-10&quot;,
-        &quot;filename&quot;: &quot;posts/post1.md&quot;
-    },
-    {
-        &quot;id&quot;: &quot;post2&quot;,
-        &quot;title&quot;: &quot;學習 JavaScript 的筆記&quot;,
-        &quot;date&quot;: &quot;2026-08-11&quot;,
-        &quot;filename&quot;: &quot;posts/post2.md&quot;
-    },
-    {
-        &quot;id&quot;: &quot;post3&quot;,
-        &quot;title&quot;: &quot;Markdown 語法小抄&quot;,
-        &quot;date&quot;: &quot;2026-08-12&quot;,
-        &quot;filename&quot;: &quot;posts/post3.md&quot;
-    }
-]
-</code></pre>
-<h2>Step 3：建立全新的 index.html</h2>
-<p>現在我們要重新設計頁面，加入「文章列表」和「文章內容」兩個區塊。</p>
-<h2>Step 4：測試成果</h2>
-<p>用 Live Server 打開 index.html，你應該會看到：</p>
-<ol>
-<li><p>左側：顯示三篇文章標題，按日期排序（最新的在最上面）</p>
-</li>
-<li><p>右側：自動顯示第一篇文章的完整內容</p>
-</li>
-<li><p>點擊任何文章標題，右側內容會切換為對應文章</p>
-</li>
-<li><p>目前閱讀的文章在左側會高亮顯示（藍色背景）</p>
-</li>
-</ol>
-<h2>今天學到的關鍵觀念</h2>
-<ol>
-<li>JSON 作為資料管理</li>
-</ol>
-<ul>
-<li><p>JSON 是 JavaScript 物件表示法</p>
-</li>
-<li><p>用來儲存結構化資料（文章標題、日期、檔案路徑）</p>
-</li>
-<li><p><code>response.json()</code> 可以把 JSON 字串轉換成 JavaScript 物件</p>
-</li>
-</ul>
-<ol start="2">
-<li>動態渲染（Dynamic Rendering）</li>
-</ol>
-<ul>
-<li><p>用 JavaScript 根據資料「產生」HTML 元素</p>
-</li>
-<li><p>不再是寫死 HTML，而是根據資料內容動態生成</p>
-</li>
-<li><p><code>document.querySelectorAll()</code> + <code>forEach()</code> 批量處理元素</p>
-</li>
-</ul>
-<ol start="3">
-<li>事件委派（Event Delegation）</li>
-</ol>
-<ul>
-<li><p>在每個 li 上綁定 click 事件</p>
-</li>
-<li><p>點擊時讀取 data-filename 屬性，決定要載入哪篇文章</p>
-</li>
-</ul>
-<ol start="4">
-<li>狀態管理（簡單版）</li>
-</ol>
-<ul>
-<li><p>postsData 變數儲存所有文章資料</p>
-</li>
-<li><p>點擊文章時，更新「目前選中的文章」狀態（用 active class 標示）</p>
-</li>
-</ul>
-<h2>今天的作業（Day 3 完成標準）</h2>
-<ul>
-<li>成功建立 3 篇以上 Markdown 文章</li>
-<li>成功建立 posts.json 文章清單</li>
-<li>側邊欄正確顯示所有文章標題和日期</li>
-<li>點擊文章標題能切換顯示內容</li>
-<li>新增第 4 篇文章，更新 posts.json，確認自動出現在列表中</li>
-</ul>
+        <h1>「內容與版型分離」的網站製作學習大綱</h1>
 <blockquote>
-<p>md檔我使用記事本開啟後，有時每行的行首第一次元會出現 “/”。更改了原先的內容。為什麼要怎麼解決？</p>
+<p>我有基礎的 html . javascript 知識，我想學習「內容與版型分離」的網站製作：也就是把文章內容集中管理使用 Markdown 方式。我該如何開始，例如給我學習大綱。</p>
 </blockquote>
-<p>這是個非常經典的問題！這不是 Markdown 或你的程式碼有問題，而是 Windows 記事本的編碼設定 造成的。</p>
-<h2>問題原因</h2>
-<p>Windows 記事本在儲存檔案時，預設使用 UTF-8 with BOM（位元組順序標記），會在檔案開頭加入一個看不見的 U+FEFF 字元。</p>
-<p>當你用瀏覽器讀取這個檔案時，這個隱藏字元可能會被顯示成：</p>
+<p>太棒了！你有基礎的 HTML 和 JavaScript，這正是學習「內容與版型分離」最好的起點。你不需要先學會 React 或 Vue，用純前端技術就能做到。</p>
+<p>這套做法的核心精神是：內容（Markdown） + 樣板（HTML/CSS） + 邏輯（JavaScript）。</p>
+<p>以下為你量身打造一份 為期 4 週的學習大綱，跟著做，你就能建立自己的輕量級 CMS（內容管理系統）。</p>
+<hr>
+<h2>第一週：觀念建立與靜態轉換（從 HTML 到 Markdown）</h2>
+<p><strong>目標</strong>：理解為什麼要分離，並學會將「固定文字」從 HTML 中抽離。</p>
 <ul>
-<li><p>在某些情況下顯示為 ﻿（在網頁開頭）</p>
+<li><p>Day 1-2：觀念釐清</p>
+<ul>
+<li><p>什麼是「耦合」與「分離」？</p>
 </li>
-<li><p>在你的情況可能顯示為 /（因為記事本轉換時的顯示問題）</p>
+<li><p>實作對照：複製貼上 10 篇文章的 HTML 檔案 vs. 1 個模板檔案。</p>
 </li>
-<li><p>或者造成第一行開頭出現亂碼</p>
+<li><p>認識 Markdown 語法（標題、清單、連結、圖片）。</p>
 </li>
 </ul>
-<h2>解決方法</h2>
-<h3>改用 VS Code 編輯</h3>
-<p>既然你已經在用 VS Code，直接用 VS Code 開啟和編輯 .md 檔案，不要用記事本。</p>
-<ol>
-<li><p>在 VS Code 中，點擊左側的「檔案總管」</p>
 </li>
-<li><p>找到你的 .md 檔案，點擊打開</p>
+<li><p>Day 3-4：前端解析器入門</p>
+<ul>
+<li><p>學習使用 marked.js 或 showdown.js（純 JS 套件）。</p>
 </li>
-<li><p>編輯完後按 Ctrl+S 儲存</p>
+<li><p>練習：寫一個 index.html，裡面包一個 <code>&lt;div id=&quot;content&quot;&gt;</code>，用 JavaScript 把 <code># 你好</code> 轉換成 <code>&lt;h1&gt;</code>你好<code>&lt;/h1&gt;</code> 渲染出來。</p>
 </li>
-<li><p>VS Code 預設使用 UTF-8 without BOM，不會有這個問題</p>
+</ul>
 </li>
-</ol>
+<li><p>Day 5-7：第一個分離練習</p>
+<ul>
+<li><p>把你的個人簡介寫成 about.md。</p>
+</li>
+<li><p>寫死 JavaScript 去抓取這個 .md 檔案（使用 fetch），並渲染到網頁上。</p>
+</li>
+<li><p>挫折排除：學會使用 VS Code 的 Live Server 啟動網頁（否則 fetch 讀本地檔案會被 CORS 政策阻擋）。</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>第二週：動態載入與路由概念（SPA 單頁應用入門）</h2>
+<p><strong>目標</strong>：做出「點擊導航列，內容改變，但網頁不重新整理」的效果。</p>
+<ul>
+<li><p>Day 8-10：Hash 路由（URL 的 # 符號）</p>
+<ul>
+<li><p>學習監聽 window.addEventListener(&#39;hashchange&#39;, ...)。</p>
+</li>
+<li><p>實作：網址為 #home 時載入 home.md，#about 時載入 about.md。</p>
+</li>
+</ul>
+</li>
+<li><p>Day 11-14：文章列表動態產生</p>
+<ul>
+<li><p>建立一個 posts/ 資料夾，放入 post1.md, post2.md。</p>
+</li>
+<li><p>建立一個 posts.json 或 posts.js，用來記錄「文章檔名」與「標題」。</p>
+</li>
+<li><p>練習：首頁自動讀取 JSON，動態產生文章標題的按鈕列表，點擊按鈕則載入對應的 .md 檔案內容。</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>第三週：樣板引擎思維（解決重複的 HTML）</h2>
+<p><strong>目標</strong>：解決「頁首、頁尾、側邊欄」每次都要複製貼上的問題。</p>
+<ul>
+<li><p>Day 15-18：JavaScript 樣板函數</p>
+<ul>
+<li><p>撰寫一個 TemplateRenderer 函數。</p>
+</li>
+<li><p>例如：<code>renderPage(&#39;about&#39;, { title: &#39;關於我&#39;, content: htmlContent })</code>，這個函數會自動把 content 塞進中間的 main，並加上共用的 Header 和 Footer。</p>
+</li>
+</ul>
+</li>
+<li><p>Day 19-21：引入 Front Matter（元資料）</p>
+<ul>
+<li><p>學習在 Markdown 最上方加入 --- 區塊（如 title: 我的文章, date: 2026-08-12）。</p>
+</li>
+<li><p>使用 gray-matter.js 套件解析，讓你的文章除了內文，還能帶有「標籤」、「日期」、「作者」等屬性。</p>
+</li>
+<li><p>實作：依照日期排序文章列表。</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>第四週：現代化工具與部署（告別手動更新）</h2>
+<p><strong>目標</strong>：從「執行時期渲染」進階到「建構時期渲染」，並發佈到網路。</p>
+<ul>
+<li><p>Day 22-25：引入 Vite 或簡單的 Node.js 腳本</p>
+<ul>
+<li><p>雖然你只會基礎 JS，但試著看教學安裝 Vite。</p>
+</li>
+<li><p>寫一個簡單的 build.js，在「編譯時」就把所有 .md 轉成 .html 靜態檔案輸出到 dist 資料夾。</p>
+</li>
+<li><p>這樣做的好處：使用者打開網頁時，看到的是純 HTML，速度極快且利於 SEO（搜尋引擎優化）。</p>
+</li>
+</ul>
+</li>
+<li><p>Day 26-28：最終整合與部署</p>
+<ul>
+<li><p>將你的專案上傳至 GitHub。</p>
+</li>
+<li><p>使用 Vercel 或 Netlify 部署（它們支援自動監聽 GitHub 更新，推送即上線）。</p>
+</li>
+</ul>
+</li>
+</ul>
 
         
             <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #ecf0f1;">
@@ -467,8 +443,8 @@
                 </li>
             
                 <li style="padding: 5px 0;">
-                    <a href="post3.html" style="color: #3498db; text-decoration: none;">
-                        Markdown 語法小抄
+                    <a href="post7.html" style="color: #3498db; text-decoration: none;">
+                        Day 04 從文章中自動提取 Front Matter
                     </a>
                     <span style="font-size: 12px; color: #7f8c8d;"> (2026-08-12)</span>
                 </li>
