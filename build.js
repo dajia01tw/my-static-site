@@ -6,6 +6,7 @@ const { marked } = require('marked');
 // 自製 Front Matter 解析器
 // ============================================================
 function parseFrontMatter(content) {
+    // 檢查是否以 --- 開頭
     if (!content.trim().startsWith('---')) {
         return { data: {}, content: content };
     }
@@ -14,6 +15,7 @@ function parseFrontMatter(content) {
     let frontMatterEnd = -1;
     let dashCount = 0;
 
+    // 尋找第二個 ---
     for (let i = 0; i < lines.length; i++) {
         if (lines[i].trim() === '---') {
             dashCount++;
@@ -24,6 +26,7 @@ function parseFrontMatter(content) {
         }
     }
 
+    // 若格式錯誤，直接回傳
     if (frontMatterEnd === -1) {
         return { data: {}, content: content };
     }
@@ -31,6 +34,7 @@ function parseFrontMatter(content) {
     const frontMatterLines = lines.slice(1, frontMatterEnd);
     const contentLines = lines.slice(frontMatterEnd + 1);
 
+    // 解析 key: value
     const data = {};
     for (const line of frontMatterLines) {
         const trimmedLine = line.trim();
@@ -42,11 +46,14 @@ function parseFrontMatter(content) {
         const key = trimmedLine.substring(0, colonIndex).trim();
         let value = trimmedLine.substring(colonIndex + 1).trim();
 
+        // 處理陣列 (例如 tags: [生活, 心得])
         if (value.startsWith('[') && value.endsWith(']')) {
             const arrayContent = value.substring(1, value.length - 1);
             value = arrayContent.split(',').map(item => item.trim());
-        } else if ((value.startsWith('"') && value.endsWith('"')) ||
-            (value.startsWith("'") && value.endsWith("'"))) {
+        }
+        // 移除字串引號
+        else if ((value.startsWith('"') && value.endsWith('"')) ||
+                 (value.startsWith("'") && value.endsWith("'"))) {
             value = value.substring(1, value.length - 1);
         }
 
@@ -57,39 +64,6 @@ function parseFrontMatter(content) {
         data: data,
         content: contentLines.join('\n')
     };
-}
-
-
-// ============================================================
-// 產生 RSS
-// ============================================================
-// 產生 RSS
-function generateRSS() {
-    const now = new Date().toUTCString();
-    let itemsHtml = '';
-    
-    for (const post of posts.slice(0, 10)) { // 只顯示最近10篇
-        const pubDate = new Date(post.date).toUTCString();
-        const link = `https://your-site.vercel.app/${post.filename.replace('.md', '.html')}`;
-        
-        itemsHtml += `
-        <item>
-            <title>${post.title}</title>
-            <link>${link}</link>
-            <guid>${link}</guid>
-            <pubDate>${pubDate}</pubDate>
-            <description><![CDATA[${post.html.substring(0, 200)}...]]></description>
-        </item>
-        `;
-    }
-    
-    const rssContent = fs.readFileSync(
-        path.join(__dirname, 'src', 'templates', 'rss.xml'),
-        'utf-8'
-    ).replace('{{lastBuildDate}}', now).replace('{{items}}', itemsHtml);
-    
-    fs.writeFileSync(path.join(distDir, 'rss.xml'), rssContent);
-    console.log('  ✅ rss.xml');
 }
 
 // ============================================================
@@ -131,7 +105,7 @@ posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 console.log(`✅ 載入 ${posts.length} 篇文章`);
 
 // ============================================================
-// 建立輸出資料夾
+// 建立輸出資料夾（清空 dist）
 // ============================================================
 const distDir = path.join(__dirname, 'dist');
 if (fs.existsSync(distDir)) {
@@ -140,11 +114,13 @@ if (fs.existsSync(distDir)) {
 fs.mkdirSync(distDir);
 
 // ============================================================
-// 產生文章列表 HTML（包含搜尋功能）
+// 工具函數：產生側邊欄文章列表（僅顯示前 10 篇，超過則加「查看更多」）
 // ============================================================
-function generatePostList(currentPostFile = null) {
+function generateSidebarList(currentPostFile = null) {
     let html = '';
-    for (const post of posts) {
+    // 只顯示前 10 篇
+    const displayPosts = posts.slice(0, 10);
+    for (const post of displayPosts) {
         const isActive = post.filename === currentPostFile;
         const activeClass = isActive ? 'active' : '';
 
@@ -168,8 +144,15 @@ function generatePostList(currentPostFile = null) {
             </li>
         `;
     }
-    
-    // ✅ 加入搜尋功能的 JavaScript（只加在 index.html）
+
+    // 如果總文章數超過 10 篇，加入「查看更多」連結
+    if (posts.length > 10) {
+        html += `<li style="text-align: center; margin-top: 10px;">
+                    <a href="page-2.html" style="color: #3498db; font-weight: bold;">查看更多文章 →</a>
+                </li>`;
+    }
+
+    // 加入搜尋功能（僅在首頁）
     if (currentPostFile === null) {
         html += `
         <script>
@@ -184,12 +167,25 @@ function generatePostList(currentPostFile = null) {
         </script>
         `;
     }
-    
+
     return html;
 }
 
 // ============================================================
-// 產生每一篇文章的 HTML
+// 🆕 工具函數：取得相關文章（相同標籤，最多 3 篇）
+// ============================================================
+function getRelatedPosts(currentPost, limit = 3) {
+    const tags = currentPost.tags || [];
+    if (tags.length === 0) return [];
+
+    return posts
+        .filter(p => p.filename !== currentPost.filename) // 排除自己
+        .filter(p => p.tags && p.tags.some(t => tags.includes(t))) // 至少一個相同標籤
+        .slice(0, limit);
+}
+
+// ============================================================
+// 產生所有文章頁面（包含相關文章）
 // ============================================================
 console.log('📝 產生文章頁面...');
 
@@ -202,6 +198,30 @@ for (const post of posts) {
         ).join(' ');
     }
 
+    // ---- 相關文章區塊 ----
+    const relatedPosts = getRelatedPosts(post);
+    let relatedHtml = '';
+    if (relatedPosts.length > 0) {
+        relatedHtml = `
+            <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #ecf0f1;">
+                <h3 style="color: #2c3e50;">📖 相關文章</h3>
+                <ul style="list-style: none; padding: 0;">
+        `;
+        for (const rel of relatedPosts) {
+            const link = rel.filename.replace('.md', '.html');
+            relatedHtml += `
+                <li style="padding: 5px 0;">
+                    <a href="${link}" style="color: #3498db; text-decoration: none;">
+                        ${rel.title}
+                    </a>
+                    <span style="font-size: 12px; color: #7f8c8d;"> (${rel.date})</span>
+                </li>
+            `;
+        }
+        relatedHtml += `</ul></div>`;
+    }
+
+    // 組裝內容
     const contentHtml = `
         <div class="post-header">
             <h1>${post.title}</h1>
@@ -209,171 +229,101 @@ for (const post of posts) {
             ${tagsHtml ? `<div class="post-tags">${tagsHtml}</div>` : ''}
         </div>
         ${post.html}
+        ${relatedHtml}
     `;
 
-    // 產生文章列表（當前文章會被標示為 active）
-    const postListHtml = generatePostList(post.filename);
+    // 側邊欄列表（當前文章高亮）
+    const sidebarHtml = generateSidebarList(post.filename);
 
-    // 替換模板中的佔位符
     const finalHtml = layoutTemplate
         .replace(/{{title}}/g, post.title)
-        .replace('{{postList}}', postListHtml)
+        .replace('{{postList}}', sidebarHtml)
         .replace('{{content}}', contentHtml);
 
-    // 寫入檔案
     const outputFile = post.filename.replace('.md', '.html');
     const outputPath = path.join(distDir, outputFile);
     fs.writeFileSync(outputPath, finalHtml);
     console.log(`  ✅ ${outputFile}`);
 }
 
-
 // ============================================================
-// 產生首頁（顯示最新文章）
+// 🆕 統一產生首頁與分頁（將首頁視為第 1 頁）
 // ============================================================
-console.log('🏠 產生首頁...');
-
-
-// 在 posts 載入完成後加入
-// 先在這裡定義 generateTagCloud 函數
-function generateTagCloud() {
-    const tagCount = {};
-    for (const post of posts) {
-        if (post.tags) {
-            for (const tag of post.tags) {
-                tagCount[tag] = (tagCount[tag] || 0) + 1;
-            }
-        }
-    }
-    
-    let html = '<div class="tag-cloud">';
-    for (const [tag, count] of Object.entries(tagCount)) {
-        const size = 12 + count * 4; // 根據文章數量調整字體大小
-        html += `<span style="font-size: ${size}px; margin: 4px; display: inline-block; background: #ecf0f1; padding: 2px 10px; border-radius: 12px;">#${tag} (${count})</span>`;
-    }
-    html += '</div>';
-    return html;
-}
-
-// 然後在這邊使用它 tagCloudHtml = generateTagCloud();
-const tagCloudHtml = generateTagCloud();
-
-// 在 build 流程中加入
-generateRSS();
-
-const firstPost = posts[0];
-let homeContent = '';
-
-if (firstPost) {
-    let tagsHtml = '';
-    if (firstPost.tags && firstPost.tags.length > 0) {
-        tagsHtml = firstPost.tags.map(tag =>
-            `<span>#${tag}</span>`
-        ).join(' ');
-    }
-
-    homeContent = `
-        <div class="post-header">
-            <h1>${firstPost.title}</h1>
-            <div class="post-date">📅 ${firstPost.date} · ✍️ ${firstPost.author}</div>
-            ${tagsHtml ? `<div class="post-tags">${tagsHtml}</div>` : ''}
-        </div>
-        ${firstPost.html}
-    `;
-} else {
-    homeContent = `
-        <div class="welcome">
-            <h1>👋 歡迎來到我的部落格</h1>
-            <p>目前沒有文章</p>
-        </div>
-    `;
-}
-
-// ✅ 傳入 null 表示正在產生首頁，會在文章列表後加入搜尋功能
-const postListHtml = generatePostList(null);
-const finalHtml = layoutTemplate
-    .replace(/{{title}}/g, '我的部落格')
-    .replace('{{postList}}', postListHtml + tagCloudHtml)  // ← 這裡加了 tagCloudHtml
-    .replace('{{content}}', homeContent);
-
-fs.writeFileSync(path.join(distDir, 'index.html'), finalHtml);
-console.log('  ✅ index.html');
-
-
-// ============================================================
-// 🆕 新增：產生分頁（文章超過 5 篇時）
-// ============================================================
-const postsPerPage = 5;
+const postsPerPage = 10;
 const totalPages = Math.ceil(posts.length / postsPerPage);
 
-if (totalPages > 1) {
-    console.log(`📑 產生 ${totalPages} 個分頁...`);
-    
-    for (let page = 1; page <= totalPages; page++) {
-        const start = (page - 1) * postsPerPage;
-        const end = start + postsPerPage;
-        const pagePosts = posts.slice(start, end);
-        
-        // 產生該頁的文章列表
-        let pagePostListHtml = '';
-        for (const post of pagePosts) {
-            const link = post.filename.replace('.md', '.html');
-            let tagsHtml = '';
-            if (post.tags && post.tags.length > 0) {
-                tagsHtml = post.tags.map(tag =>
-                    `<span class="post-tag">#${tag}</span>`
-                ).join(' ');
-            }
-            
-            pagePostListHtml += `
-                <li>
-                    <a href="${link}">
-                        ${post.title}
-                        <span class="post-meta">
-                            ${post.date} ${tagsHtml}
-                        </span>
-                    </a>
-                </li>
-            `;
+console.log(`📑 產生 ${totalPages} 個分頁（每頁 ${postsPerPage} 篇）...`);
+
+for (let page = 1; page <= totalPages; page++) {
+    const start = (page - 1) * postsPerPage;
+    const end = start + postsPerPage;
+    const pagePosts = posts.slice(start, end);
+
+    // 產生該頁的文章列表（純文章標題，不含側邊欄樣式）
+    let pagePostListHtml = '';
+    for (const post of pagePosts) {
+        const link = post.filename.replace('.md', '.html');
+        let tagsHtml = '';
+        if (post.tags && post.tags.length > 0) {
+            tagsHtml = post.tags.map(tag =>
+                `<span class="post-tag">#${tag}</span>`
+            ).join(' ');
         }
-        
-        // 加入分頁導航（上一頁 / 下一頁）
-        let paginationHtml = '<div style="margin-top: 20px; text-align: center;">';
-        if (page > 1) {
-            paginationHtml += `<a href="page-${page-1}.html">⬅ 上一頁</a>`;
-        }
-        paginationHtml += ` <span style="margin: 0 15px;">第 ${page} / ${totalPages} 頁</span> `;
-        if (page < totalPages) {
-            paginationHtml += `<a href="page-${page+1}.html">下一頁 ➡</a>`;
-        }
-        paginationHtml += '</div>';
-        
-        // 組裝頁面內容
-        const pageContentHtml = `
-            <div class="post-header">
-                <h1>📄 文章列表 - 第 ${page} 頁</h1>
-            </div>
-            <ul class="post-list" style="list-style: none; padding: 0;">
-                ${pagePostListHtml}
-            </ul>
-            ${paginationHtml}
+
+        pagePostListHtml += `
+            <li style="padding: 8px 0; border-bottom: 1px solid #ecf0f1;">
+                <a href="${link}" style="font-size: 16px; color: #2c3e50; text-decoration: none;">
+                    ${post.title}
+                </a>
+                <span style="display: block; font-size: 12px; color: #7f8c8d; margin-top: 2px;">
+                    ${post.date} ${tagsHtml}
+                </span>
+            </li>
         `;
-        
-        // 使用布局模板
-        const pageHtml = layoutTemplate
-            .replace(/{{title}}/g, `文章列表 - 第 ${page} 頁`)
-            .replace('{{postList}}', '') // 分頁頁面不需要側邊欄文章列表
-            .replace('{{content}}', pageContentHtml);
-        
-        // 寫入檔案
-        const pageFileName = page === 1 ? 'index.html' : `page-${page}.html`;
-        fs.writeFileSync(path.join(distDir, pageFileName), pageHtml);
-        console.log(`  ✅ ${pageFileName}`);
     }
+
+    // 分頁導航
+    let paginationHtml = '<div style="margin-top: 30px; text-align: center; padding: 15px 0;">';
+    if (page > 1) {
+        const prevPage = page === 2 ? 'index.html' : `page-${page-1}.html`;
+        paginationHtml += `<a href="${prevPage}" style="margin-right: 20px;">⬅ 上一頁</a>`;
+    }
+    paginationHtml += `<span style="margin: 0 15px; color: #7f8c8d;">第 ${page} / ${totalPages} 頁</span>`;
+    if (page < totalPages) {
+        paginationHtml += `<a href="page-${page+1}.html" style="margin-left: 20px;">下一頁 ➡</a>`;
+    }
+    paginationHtml += '</div>';
+
+    // 組裝內容
+    const pageContentHtml = `
+        <div class="post-header">
+            <h1>📄 文章列表 - 第 ${page} 頁</h1>
+        </div>
+        <ul style="list-style: none; padding: 0;">
+            ${pagePostListHtml}
+        </ul>
+        ${paginationHtml}
+    `;
+
+    // 側邊欄（分頁頁面不需要搜尋框，且不需要高亮，傳入 null 表示不特別標示）
+    const sidebarHtml = generateSidebarList(null);
+
+    // 頁面標題
+    const pageTitle = page === 1 ? '我的部落格' : `文章列表 - 第 ${page} 頁`;
+
+    const pageHtml = layoutTemplate
+        .replace(/{{title}}/g, pageTitle)
+        .replace('{{postList}}', sidebarHtml)
+        .replace('{{content}}', pageContentHtml);
+
+    // 檔案名稱：首頁為 index.html，其餘為 page-{page}.html
+    const pageFileName = page === 1 ? 'index.html' : `page-${page}.html`;
+    fs.writeFileSync(path.join(distDir, pageFileName), pageHtml);
+    console.log(`  ✅ ${pageFileName}`);
 }
 
 // ============================================================
-// 複製文章 .md 檔案到 dist（可選，方便查看原始碼）
+// 複製原始 .md 檔案到 dist（方便查看原始碼）
 // ============================================================
 const postsDistDir = path.join(distDir, 'posts');
 fs.mkdirSync(postsDistDir);
@@ -382,8 +332,7 @@ for (const post of posts) {
     const destPath = path.join(postsDistDir, post.filename);
     fs.copyFileSync(srcPath, destPath);
 }
-
-console.log('📊 複製 .md 檔案到 dist/posts/');
+console.log(`📊 複製 .md 檔案到 dist/posts/`);
 
 // ============================================================
 // 完成！
