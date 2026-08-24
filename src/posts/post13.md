@@ -29,6 +29,8 @@ author: Kai, copilot
 
 👉 沒有這一步，專案不能執行，也不能 build。
 
+____
+
 ### 2️⃣ npm run build
 
 作用：把你的網站「編譯成可部署的版本」。
@@ -43,6 +45,8 @@ author: Kai, copilot
 
 👉 Vercel 會自動做這一步，但你本機測試時也會用到。
 
+____
+
 ### 3️⃣ git init
 
 作用：在你的資料夾裡建立一個新的 Git 儲存庫。
@@ -53,9 +57,17 @@ author: Kai, copilot
 
 👉 這是把你的專案變成「可推送到 GitHub」的第一步。
 
+____
 
+### 4️⃣ git add .
 
+作用：把所有檔案加入「暫存區」（staging area）。
 
+意思是：
+
+「Git，請準備好這些檔案，等一下要一起提交。」
+
+. 代表「全部檔案」。
 
 
 
