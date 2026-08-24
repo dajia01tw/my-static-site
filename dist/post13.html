@@ -386,6 +386,41 @@
 </ul>
 <p>意思是：</p>
 <p>「Git，等一下推送到這個 GitHub 儲存庫。」</p>
+<blockquote>
+<p>有時執行 <code>git remote add origin ...</code> 時會出現這個錯誤訊息 error: remote origin already exists. 這表示在你的本地 Git 專案中，已經存在一個名為 origin 的遠端倉庫連結了。</p>
+</blockquote>
+<h4>為什麼會這樣？</h4>
+<p>最常見的原因是，你的這個專案資料夾可能已經透過 git clone 或其他方式，與一個遠端倉庫建立了關聯。當你再次執行 git remote add origin ... 試圖建立同名連結時，Git 就會拒絕並報錯。</p>
+<h4>如何解決？</h4>
+<p>要解決這個問題很簡單，有兩種方法可以選擇：</p>
+<p>方法一：直接更新現有的遠端連結 (最推薦)</p>
+<p>既然 origin 已經存在，與其刪除再重建，不如直接用新的網址覆蓋它。這樣更乾淨俐落。</p>
+<p>執行以下指令，將 origin 的遠端倉庫網址更新為你第二個 GitHub 倉庫的正確網址：</p>
+<pre><code>git remote set-url origin https://github.com/dajia01tw/dajia-demo-source.git
+</code></pre>
+<p>方法二：先刪除再重新新增</p>
+<p>如果你偏好「先刪除、再新增」的明確步驟，可以這樣操作：</p>
+<ol>
+<li>刪除現有的 origin 遠端連結：</li>
+</ol>
+<pre><code>git remote remove origin
+</code></pre>
+<p>或</p>
+<pre><code>git remote rm origin
+</code></pre>
+<ol start="2">
+<li>重新新增正確的遠端連結：</li>
+</ol>
+<pre><code>git remote add origin https://github.com/dajia01tw/dajia-demo-source.git
+</code></pre>
+<h4>驗證與後續步驟</h4>
+<p>完成上述任一方法後，建議先用以下指令查看遠端連結是否已正確指向你的新倉庫：</p>
+<pre><code>git remote -v
+</code></pre>
+<p>確認無誤後，就可以繼續進行推送了：</p>
+<pre><code>git branch -M main
+git push -u origin main
+</code></pre>
 <hr>
 <h3>7️⃣ <code>git branch -M main</code></h3>
 <p>作用：把目前的分支改名為 <code>main</code>。</p>
