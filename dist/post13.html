@@ -319,67 +319,67 @@
 <p>這些指令的目的就是：</p>
 <p>在本機建立專案 → 安裝套件 → 建置 → 建立 Git 儲存庫 → 推送到 GitHub → 讓 Vercel 自動部署。</p>
 <h2>🧩 逐行解釋每個指令的意思（最清楚版本）</h2>
-<h3>1️⃣ npm install</h3>
+<h3>1️⃣ <code>npm install</code></h3>
 <p>作用：安裝專案需要的所有套件（dependencies）。</p>
 <ul>
-<li><p>VS Code 專案通常有一個 package.json</p>
+<li><p>VS Code 專案通常有一個 <code>package.json</code></p>
 </li>
 <li><p>裡面列出你專案需要的套件（例如 Next.js、React、MDX 等）</p>
 </li>
-<li><p>npm install 會把它們全部下載到 node_modules/</p>
+<li><p><code>npm install</code> 會把它們全部下載到 <code>node_modules/</code></p>
 </li>
 </ul>
 <p>👉 沒有這一步，專案不能執行，也不能 build。</p>
 <hr>
-<h3>2️⃣ npm run build</h3>
+<h3>2️⃣ <code>npm run build</code></h3>
 <p>作用：把你的網站「編譯成可部署的版本」。</p>
 <ul>
-<li><p>Next.js → 產生 .next/</p>
+<li><p>Next.js → 產生 <code>.next/</code></p>
 </li>
-<li><p>Astro → 產生 dist/</p>
+<li><p>Astro → 產生 <code>dist/</code></p>
 </li>
-<li><p>Vite → 產生 dist/</p>
+<li><p>Vite → 產生 <code>dist/</code></p>
 </li>
 <li><p>靜態網站 → 產生 HTML/CSS/JS</p>
 </li>
 </ul>
 <p>👉 Vercel 會自動做這一步，但你本機測試時也會用到。</p>
 <hr>
-<h3>3️⃣ git init</h3>
+<h3>3️⃣ <code>git init</code></h3>
 <p>作用：在你的資料夾裡建立一個新的 Git 儲存庫。</p>
 <ul>
 <li><p>讓 Git 開始追蹤你的檔案變化</p>
 </li>
-<li><p>會建立 .git/ 隱藏資料夾</p>
+<li><p>會建立 <code>.git/</code> 隱藏資料夾</p>
 </li>
 </ul>
 <p>👉 這是把你的專案變成「可推送到 GitHub」的第一步。</p>
 <hr>
-<h3>4️⃣ git add .</h3>
+<h3>4️⃣ <code>git add .</code></h3>
 <p>作用：把所有檔案加入「暫存區」（staging area）。</p>
 <p>意思是：</p>
 <p>「Git，請準備好這些檔案，等一下要一起提交。」</p>
-<p>. 代表「全部檔案」。</p>
+<p><code>.</code> 代表「全部檔案」。</p>
 <hr>
-<h3>5️⃣ git commit -m &quot;Initial commit&quot;</h3>
+<h3>5️⃣ <code>git commit -m &quot;Initial commit&quot;</code></h3>
 <p>作用：把暫存區的檔案正式記錄成一個版本（commit）。</p>
-<h4>🔍 那 &quot;&quot; 裡面的文字是什麼意思？</h4>
+<h4>🔍 那 <code>&quot;&quot;</code> 裡面的文字是什麼意思？</h4>
 <p>它是 這次版本的說明文字（commit message）。</p>
 <p>例如：</p>
 <ul>
-<li><p>&quot;Initial commit&quot; → 第一次提交</p>
+<li><p><code>&quot;Initial commit&quot;</code> → 第一次提交</p>
 </li>
-<li><p>&quot;Add homepage&quot; → 新增首頁</p>
+<li><p><code>&quot;Add homepage&quot;</code> → 新增首頁</p>
 </li>
-<li><p>&quot;Fix table style&quot; → 修正表格樣式</p>
+<li><p><code>&quot;Fix table style&quot;</code> → 修正表格樣式</p>
 </li>
 </ul>
 <p>👉 這是給你自己或團隊看的版本紀錄。</p>
 <hr>
-<h3>6️⃣ git remote add origin <a href="https://github.com/YOUR_USERNAME/my-static-site.git">https://github.com/YOUR_USERNAME/my-static-site.git</a></h3>
+<h3>6️⃣ <code>git remote add origin https://github.com/YOUR_USERNAME/my-static-site.git</code></h3>
 <p>作用：告訴 Git：你的遠端儲存庫（GitHub）在哪裡。</p>
 <ul>
-<li><p>origin 是遠端的名字（慣例）</p>
+<li><p><code>origin</code> 是遠端的名字（慣例）</p>
 </li>
 <li><p>後面是 GitHub 的網址</p>
 </li>
@@ -387,12 +387,12 @@
 <p>意思是：</p>
 <p>「Git，等一下推送到這個 GitHub 儲存庫。」</p>
 <hr>
-<h3>7️⃣ git branch -M main</h3>
-<p>作用：把目前的分支改名為 main。</p>
+<h3>7️⃣ <code>git branch -M main</code></h3>
+<p>作用：把目前的分支改名為 <code>main</code>。</p>
 <ul>
-<li><p>Git 以前預設是 master</p>
+<li><p>Git 以前預設是 <code>master</code></p>
 </li>
-<li><p>現在 GitHub 改成 main</p>
+<li><p>現在 GitHub 改成 <code>main</code></p>
 </li>
 <li><p>這行指令確保你本機的分支名稱跟 GitHub 一樣</p>
 </li>
@@ -402,18 +402,18 @@
 <h3>8️⃣ git push -u origin main</h3>
 <p>作用：把你的本機專案推送到 GitHub 的 main 分支。</p>
 <ul>
-<li><p>origin → 遠端（GitHub）</p>
+<li><p><code>origin</code> → 遠端（GitHub）</p>
 </li>
-<li><p>main → 分支名稱</p>
+<li><p><code>main</code> → 分支名稱</p>
 </li>
-<li><p>-u → 讓 Git 記住這個設定，之後可以直接用 git push</p>
+<li><p><code>-u</code> → 讓 Git 記住這個設定，之後可以直接用 <code>git push</code></p>
 </li>
 </ul>
 <p>👉 這是第一次推送。</p>
 <hr>
-<h3>9️⃣ git push</h3>
+<h3>9️⃣ <code>git push</code></h3>
 <p>作用：把後續的更新推送到 GitHub。</p>
-<p>因為你之前用了 -u，Git 已經記住：</p>
+<p>因為你之前用了 <code>-u</code>，Git 已經記住：</p>
 <p>「推到 origin 的 main 分支」</p>
 <p>所以你之後只要打：</p>
 <pre><code>git push
@@ -424,23 +424,23 @@
 <ol>
 <li><p>VS Code 建專案</p>
 </li>
-<li><p>npm install → 安裝套件</p>
+<li><p><code>npm install</code> → 安裝套件</p>
 </li>
-<li><p>npm run build → 測試能不能建置</p>
+<li><p><code>npm run build</code> → 測試能不能建置</p>
 </li>
-<li><p>git init → 建 Git 儲存庫</p>
+<li><p><code>git init</code> → 建 Git 儲存庫</p>
 </li>
-<li><p>git add . → 加入所有檔案</p>
+<li><p><code>git add .</code> → 加入所有檔案</p>
 </li>
-<li><p>git commit -m &quot;Initial commit&quot; → 建立版本</p>
+<li><p><code>git commit -m &quot;Initial commit&quot;</code> → 建立版本</p>
 </li>
-<li><p>git remote add origin ... → 連接 GitHub</p>
+<li><p><code>git remote add origin ...</code> → 連接 GitHub</p>
 </li>
-<li><p>git branch -M main → 確保分支名稱一致</p>
+<li><p><code>git branch -M main</code> → 確保分支名稱一致</p>
 </li>
-<li><p>git push -u origin main → 推到 GitHub</p>
+<li><p><code>git push -u origin main</code> → 推到 GitHub</p>
 </li>
-<li><p>Vercel 會自動偵測 GitHub → 自動部署</p>
+<li><p><code>Vercel 會自動偵測 GitHub</code> → 自動部署</p>
 </li>
 </ol>
 
