@@ -215,7 +215,7 @@
                 <a href="post13.html">
                     用 VS Code 部署網站的真實流程 來解釋每一個指令
                     <span class="post-meta">
-                        2026-08-21 <span class="post-tag">#網站</span> <span class="post-tag">#心得</span>
+                        2026-08-21 <span class="post-tag">#網站</span> <span class="post-tag">#心得</span> <span class="post-tag">#vs code</span>
                     </span>
                 </a>
             </li>
@@ -311,7 +311,7 @@
         <div class="post-header">
             <h1>用 VS Code 部署網站的真實流程 來解釋每一個指令</h1>
             <div class="post-date">📅 2026-08-21 · ✍️ Kai, copilot</div>
-            <div class="post-tags"><span>#網站</span> <span>#心得</span></div>
+            <div class="post-tags"><span>#網站</span> <span>#心得</span> <span>#vs code</span></div>
         </div>
         <h1>用 VS Code 部署網站的真實流程 來解釋每一個指令</h1>
 <p>我用 你在 VS Code → GitHub → Vercel 部署網站的真實流程 來解釋每一個指令的「作用」、「什麼時候用」、「背後發生什麼事」，讓你完全理解整個 pipeline。</p>
@@ -330,6 +330,28 @@
 </li>
 </ul>
 <p>👉 沒有這一步，專案不能執行，也不能 build。</p>
+<h3>2️⃣ npm run build</h3>
+<p>作用：把你的網站「編譯成可部署的版本」。</p>
+<ul>
+<li><p>Next.js → 產生 .next/</p>
+</li>
+<li><p>Astro → 產生 dist/</p>
+</li>
+<li><p>Vite → 產生 dist/</p>
+</li>
+<li><p>靜態網站 → 產生 HTML/CSS/JS</p>
+</li>
+</ul>
+<p>👉 Vercel 會自動做這一步，但你本機測試時也會用到。</p>
+<h3>3️⃣ git init</h3>
+<p>作用：在你的資料夾裡建立一個新的 Git 儲存庫。</p>
+<ul>
+<li><p>讓 Git 開始追蹤你的檔案變化</p>
+</li>
+<li><p>會建立 .git/ 隱藏資料夾</p>
+</li>
+</ul>
+<p>👉 這是把你的專案變成「可推送到 GitHub」的第一步。</p>
 
         
             <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #ecf0f1;">
