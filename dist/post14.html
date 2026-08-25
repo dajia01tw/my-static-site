@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文章列表 - 第 2 頁</title>
+    <title>Git 常用指令速查表（Cheat Sheet）</title>
     <style>
         * {
             margin: 0;
@@ -220,7 +220,7 @@
                 </a>
             </li>
         
-            <li class="">
+            <li class="active">
                 <a href="post14.html">
                     Git 常用指令速查表（Cheat Sheet）
                     <span class="post-meta">
@@ -303,65 +303,147 @@
         <li style="text-align: center; margin-top: 10px;">
                     <a href="page-2.html" style="color: #3498db; font-weight: bold;">查看更多文章 →</a>
                 </li>
-        <script>
-            document.getElementById('searchInput').addEventListener('input', function() {
-                const query = this.value.toLowerCase();
-                const items = document.querySelectorAll('#postList li');
-                items.forEach(item => {
-                    const text = item.textContent.toLowerCase();
-                    item.style.display = text.includes(query) ? '' : 'none';
-                });
-            });
-        </script>
-        
           </ul>
         </aside>
 
         <main class="main-content">
             
         <div class="post-header">
-            <h1>📄 文章列表 - 第 2 頁</h1>
+            <h1>Git 常用指令速查表（Cheat Sheet）</h1>
+            <div class="post-date">📅 2026-08-21 · ✍️ Kai, copilot</div>
+            <div class="post-tags"><span>#網站</span> <span>#心得</span> <span>#Git</span></div>
         </div>
-        <ul style="list-style: none; padding: 0;">
+        <h1>Git 常用指令速查表（Cheat Sheet）</h1>
+<p>這份速查表整理了日常開發、版本控制、推送、分支管理等最常用的 Git 指令，適用 VS Code、GitHub、Vercel 的工作流程。</p>
+<hr>
+<h2>📦 初始化與設定</h2>
+<h3>建立新的 Git 儲存庫</h3>
+<pre><code>git init
+</code></pre>
+<h3>查看目前 Git 設定</h3>
+<pre><code>git config --list
+</code></pre>
+<h3>設定使用者名稱與 Email（提交紀錄會用到）</h3>
+<pre><code>git config --global user.name &quot;你的名字&quot;
+git config --global user.email &quot;你的Email&quot;
+</code></pre>
+<hr>
+<h2>📥 加入與提交（Add &amp; Commit）</h2>
+<h3>將所有檔案加入暫存區</h3>
+<pre><code>git add .
+</code></pre>
+<h3>加入單一檔案</h3>
+<pre><code>git add filename.txt
+</code></pre>
+<h3>建立提交（commit）</h3>
+<pre><code>git commit -m &quot;提交說明&quot;
+</code></pre>
+<h3>修改上一個 commit 的訊息</h3>
+<pre><code>git commit --amend -m &quot;新的提交說明&quot;
+</code></pre>
+<hr>
+<h2>📤 推送到 GitHub（Push）</h2>
+<h3>第一次推送到遠端（設定 upstream）</h3>
+<pre><code>git push -u origin main
+</code></pre>
+<h3>之後的推送</h3>
+<pre><code>git push
+</code></pre>
+<hr>
+<h2>📥 從 GitHub 拉取更新（Pull）</h2>
+<h3>拉取最新版本</h3>
+<pre><code>git pull
+</code></pre>
+<hr>
+<h2>🔗 連接遠端儲存庫（Remote）</h2>
+<h3>新增遠端儲存庫</h3>
+<pre><code>git remote add origin https://github.com/USERNAME/REPO.git
+</code></pre>
+<h3>查看遠端設定</h3>
+<pre><code>git remote -v
+</code></pre>
+<h3>移除遠端</h3>
+<pre><code>git remote remove origin
+</code></pre>
+<hr>
+<h2>🌿 分支管理（Branch）</h2>
+<h3>查看所有分支</h3>
+<pre><code>git branch
+</code></pre>
+<h3>建立新分支</h3>
+<pre><code>git branch feature-login
+</code></pre>
+<h3>切換分支</h3>
+<pre><code>git checkout feature-login
+</code></pre>
+<h3>建立並切換分支（常用）</h3>
+<pre><code>git checkout -b feature-login
+</code></pre>
+<h3>刪除分支</h3>
+<pre><code>git branch -d feature-login
+</code></pre>
+<h3>強制刪除分支</h3>
+<pre><code>git branch -D feature-login
+</code></pre>
+<hr>
+<h2>🔀 合併（Merge）</h2>
+<h3>將某分支合併到目前分支</h3>
+<pre><code>git merge feature-login
+</code></pre>
+<hr>
+<h2>📜 查看紀錄（Log &amp; Status）</h2>
+<h3>查看目前狀態</h3>
+<pre><code>git status
+</code></pre>
+<h3>查看提交紀錄（簡潔版）</h3>
+<pre><code>git log --oneline
+</code></pre>
+<h3>查看提交紀錄（完整）</h3>
+<pre><code>git log
+</code></pre>
+<hr>
+<h2>♻️ 回復與還原（Reset &amp; Restore）</h2>
+<h3>還原暫存區的檔案</h3>
+<pre><code>git restore --staged filename.txt
+</code></pre>
+<h3>還原工作區的檔案</h3>
+<pre><code>git restore filename.txt
+</code></pre>
+<h3>回到某個 commit（危險操作）</h3>
+<pre><code>git reset --hard &lt;commit-id&gt;
+</code></pre>
+<hr>
+<h2>🧹 清除（Clean）</h2>
+<h3>清除未追蹤的檔案</h3>
+<pre><code>git clean -f
+</code></pre>
+
+        
+            <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #ecf0f1;">
+                <h3 style="color: #2c3e50;">📖 相關文章</h3>
+                <ul style="list-style: none; padding: 0;">
+        
+                <li style="padding: 5px 0;">
+                    <a href="post13.html" style="color: #3498db; text-decoration: none;">
+                        用 VS Code 部署網站的真實流程 來解釋每一個指令
+                    </a>
+                    <span style="font-size: 12px; color: #7f8c8d;"> (2026-08-21)</span>
+                </li>
             
-            <li style="padding: 8px 0; border-bottom: 1px solid #ecf0f1;">
-                <a href="post1.html" style="font-size: 16px; color: #2c3e50; text-decoration: none;">
-                    我的第一篇文章
-                </a>
-                <span style="display: block; font-size: 12px; color: #7f8c8d; margin-top: 2px;">
-                    2026-08-10 <span class="post-tag">#生活</span> <span class="post-tag">#心得</span>
-                </span>
-            </li>
-        
-            <li style="padding: 8px 0; border-bottom: 1px solid #ecf0f1;">
-                <a href="post12.html" style="font-size: 16px; color: #2c3e50; text-decoration: none;">
-                    Day 00 「內容與版型分離」的網站製作學習大綱
-                </a>
-                <span style="display: block; font-size: 12px; color: #7f8c8d; margin-top: 2px;">
-                    2026-08-10 <span class="post-tag">#網站</span> <span class="post-tag">#心得</span>
-                </span>
-            </li>
-        
-            <li style="padding: 8px 0; border-bottom: 1px solid #ecf0f1;">
-                <a href="post4.html" style="font-size: 16px; color: #2c3e50; text-decoration: none;">
-                    Day 01 你的第一個 Markdown 轉 HTML 頁面
-                </a>
-                <span style="display: block; font-size: 12px; color: #7f8c8d; margin-top: 2px;">
-                    2026-08-10 <span class="post-tag">#程式</span> <span class="post-tag">#工具</span> <span class="post-tag">#vs code</span> <span class="post-tag">#心得</span>
-                </span>
-            </li>
-        
-            <li style="padding: 8px 0; border-bottom: 1px solid #ecf0f1;">
-                <a href="post5.html" style="font-size: 16px; color: #2c3e50; text-decoration: none;">
-                    Day 02 把 Markdown 內容分離到獨立檔案
-                </a>
-                <span style="display: block; font-size: 12px; color: #7f8c8d; margin-top: 2px;">
-                    2026-08-10 <span class="post-tag">#程式</span> <span class="post-tag">#JavaScript</span> <span class="post-tag">#心得</span>
-                </span>
-            </li>
-        
-        </ul>
-        <div style="margin-top: 30px; text-align: center; padding: 15px 0;"><a href="index.html" style="margin-right: 20px;">⬅ 上一頁</a><span style="margin: 0 15px; color: #7f8c8d;">第 2 / 2 頁</span></div>
+                <li style="padding: 5px 0;">
+                    <a href="post9.html" style="color: #3498db; text-decoration: none;">
+                        Day 06 進階功能與自動化
+                    </a>
+                    <span style="font-size: 12px; color: #7f8c8d;"> (2026-08-15)</span>
+                </li>
+            
+                <li style="padding: 5px 0;">
+                    <a href="post8.html" style="color: #3498db; text-decoration: none;">
+                        Day 05 靜態網站生成器（Static Site Generator）與部署
+                    </a>
+                    <span style="font-size: 12px; color: #7f8c8d;"> (2026-08-14)</span>
+                </li>
+            </ul></div>
     
         </main>
     </div>
