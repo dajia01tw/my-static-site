@@ -176,7 +176,7 @@ ____
 
 ____
 
-### 8️⃣ git push -u origin main
+### 8️⃣ `git push -u origin main`
 
 作用：把你的本機專案推送到 GitHub 的 main 分支。
 
@@ -187,6 +187,29 @@ ____
 - `-u` → 讓 Git 記住這個設定，之後可以直接用 `git push`
 
 👉 這是第一次推送。
+
+> 有時執行 `git push -u origin main` 出現：被拒絕的錯誤訊息。
+
+#### ❌ 結果：被拒絕（rejected）
+
+```
+! [rejected] main -> main (fetch first)
+Updates were rejected because the remote contains work that you do not have locally.
+```
+
+意思是：
+
+GitHub 的 main 分支裡已經有東西，而你本機的 main 是空的或不同步，所以 Git 不讓你覆蓋遠端。
+
+這通常發生在：
+
+- 你先在 GitHub 建了 README.md
+
+- 或你之前推過東西
+
+- 或你在 GitHub 上按過「Add file」
+
+總之：遠端不是空的，而本機是空的 → 推不上去。
 
 ____
 
@@ -205,6 +228,115 @@ git push
 ```
 
 就能推上 GitHub。
+
+> 有時執行 `git push` 出現：錯誤訊息。
+
+> fatal: The current branch main has no upstream branch.
+> To push the current branch and set the remote as upstream, use
+> 
+>     git push --set-upstream origin main
+> 
+> To have this happen automatically for branches without a tracking
+> upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+錯誤訊息：
+
+```
+fatal: The current branch main has no upstream branch.
+```
+
+意思是：
+
+你還沒有設定「本機 main 要推到哪裡」，所以 Git 不知道要推去哪裡。
+
+Git 建議你：
+
+```
+git push --set-upstream origin main
+```
+
+但如果你照做，還是會失敗，因為 遠端有內容，本機沒有同步。
+
+#### 🧩 為什麼會這樣？
+
+你的本機專案（demo-site）是新的，但 GitHub 上的 repo（dajia-demo-source）不是空的。
+
+Git 的規則是：
+
+不能把本機空的 main 推上去覆蓋遠端已有內容。
+
+所以 Git 要求你：
+
+先把 GitHub 的內容拉回來（pull），再推送。
+
+#### ✅ 正確處理方式（一步一步）
+
+✔ 步驟 1：先拉取遠端內容
+
+在你的專案資料夾執行：
+
+```
+git pull origin main --allow-unrelated-histories
+```
+
+為什麼要加 `--allow-unrelated-histories`？
+
+因為：
+
+- 本機是新的 Git 專案
+
+- 遠端也有自己的歷史
+
+- Git 會認為兩邊「沒有共同祖先」
+
+- 所以需要允許合併兩個不相關的歷史
+
+✔ 步驟 2：解決可能的合併衝突（如果有）
+
+如果 GitHub 上有 README.md，而你本機也有 README.md，可能會出現衝突。
+
+你只要：
+
+1. 打開 VS Code
+
+2. 看有沒有衝突標記
+
+3. 手動選擇保留哪一段
+
+4. 然後：
+
+```
+git add .
+git commit -m "Merge remote main"
+```
+
+✔ 步驟 3：再推送一次
+
+```
+git push -u origin main
+```
+
+這次就會成功。
+
+#### 🟦 如果你不想合併，只想覆蓋 GitHub（危險）
+
+如果你確定 GitHub 上的內容可以刪掉，你可以強制覆蓋：
+
+```
+git push -u origin main --force
+```
+
+⚠️ 這會刪掉 GitHub 上的所有歷史與檔案。
+
+請小心使用。
+
+#### 🎉 最終總結（最重要的三句話）
+
+- 你推不上去，是因為 GitHub 有內容，本機沒有同步
+
+- 解法是：先 pull，再 push
+
+- 如果你想覆蓋 GitHub：git push --force
 
 ____
 

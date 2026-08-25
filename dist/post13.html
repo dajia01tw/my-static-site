@@ -434,7 +434,7 @@ git push -u origin main
 </ul>
 <p>👉 避免推不上去的問題。</p>
 <hr>
-<h3>8️⃣ git push -u origin main</h3>
+<h3>8️⃣ <code>git push -u origin main</code></h3>
 <p>作用：把你的本機專案推送到 GitHub 的 main 分支。</p>
 <ul>
 <li><p><code>origin</code> → 遠端（GitHub）</p>
@@ -445,6 +445,25 @@ git push -u origin main
 </li>
 </ul>
 <p>👉 這是第一次推送。</p>
+<blockquote>
+<p>有時執行 <code>git push -u origin main</code> 出現：被拒絕的錯誤訊息。</p>
+</blockquote>
+<h4>❌ 結果：被拒絕（rejected）</h4>
+<pre><code>! [rejected] main -&gt; main (fetch first)
+Updates were rejected because the remote contains work that you do not have locally.
+</code></pre>
+<p>意思是：</p>
+<p>GitHub 的 main 分支裡已經有東西，而你本機的 main 是空的或不同步，所以 Git 不讓你覆蓋遠端。</p>
+<p>這通常發生在：</p>
+<ul>
+<li><p>你先在 GitHub 建了 README.md</p>
+</li>
+<li><p>或你之前推過東西</p>
+</li>
+<li><p>或你在 GitHub 上按過「Add file」</p>
+</li>
+</ul>
+<p>總之：遠端不是空的，而本機是空的 → 推不上去。</p>
 <hr>
 <h3>9️⃣ <code>git push</code></h3>
 <p>作用：把後續的更新推送到 GitHub。</p>
@@ -454,6 +473,84 @@ git push -u origin main
 <pre><code>git push
 </code></pre>
 <p>就能推上 GitHub。</p>
+<blockquote>
+<p>有時執行 <code>git push</code> 出現：錯誤訊息。</p>
+</blockquote>
+<blockquote>
+<p>fatal: The current branch main has no upstream branch.
+To push the current branch and set the remote as upstream, use</p>
+<pre><code>git push --set-upstream origin main
+</code></pre>
+<p>To have this happen automatically for branches without a tracking
+upstream, see &#39;push.autoSetupRemote&#39; in &#39;git help config&#39;.</p>
+</blockquote>
+<p>錯誤訊息：</p>
+<pre><code>fatal: The current branch main has no upstream branch.
+</code></pre>
+<p>意思是：</p>
+<p>你還沒有設定「本機 main 要推到哪裡」，所以 Git 不知道要推去哪裡。</p>
+<p>Git 建議你：</p>
+<pre><code>git push --set-upstream origin main
+</code></pre>
+<p>但如果你照做，還是會失敗，因為 遠端有內容，本機沒有同步。</p>
+<h4>🧩 為什麼會這樣？</h4>
+<p>你的本機專案（demo-site）是新的，但 GitHub 上的 repo（dajia-demo-source）不是空的。</p>
+<p>Git 的規則是：</p>
+<p>不能把本機空的 main 推上去覆蓋遠端已有內容。</p>
+<p>所以 Git 要求你：</p>
+<p>先把 GitHub 的內容拉回來（pull），再推送。</p>
+<h4>✅ 正確處理方式（一步一步）</h4>
+<p>✔ 步驟 1：先拉取遠端內容</p>
+<p>在你的專案資料夾執行：</p>
+<pre><code>git pull origin main --allow-unrelated-histories
+</code></pre>
+<p>為什麼要加 <code>--allow-unrelated-histories</code>？</p>
+<p>因為：</p>
+<ul>
+<li><p>本機是新的 Git 專案</p>
+</li>
+<li><p>遠端也有自己的歷史</p>
+</li>
+<li><p>Git 會認為兩邊「沒有共同祖先」</p>
+</li>
+<li><p>所以需要允許合併兩個不相關的歷史</p>
+</li>
+</ul>
+<p>✔ 步驟 2：解決可能的合併衝突（如果有）</p>
+<p>如果 GitHub 上有 README.md，而你本機也有 README.md，可能會出現衝突。</p>
+<p>你只要：</p>
+<ol>
+<li><p>打開 VS Code</p>
+</li>
+<li><p>看有沒有衝突標記</p>
+</li>
+<li><p>手動選擇保留哪一段</p>
+</li>
+<li><p>然後：</p>
+</li>
+</ol>
+<pre><code>git add .
+git commit -m &quot;Merge remote main&quot;
+</code></pre>
+<p>✔ 步驟 3：再推送一次</p>
+<pre><code>git push -u origin main
+</code></pre>
+<p>這次就會成功。</p>
+<h4>🟦 如果你不想合併，只想覆蓋 GitHub（危險）</h4>
+<p>如果你確定 GitHub 上的內容可以刪掉，你可以強制覆蓋：</p>
+<pre><code>git push -u origin main --force
+</code></pre>
+<p>⚠️ 這會刪掉 GitHub 上的所有歷史與檔案。</p>
+<p>請小心使用。</p>
+<h4>🎉 最終總結（最重要的三句話）</h4>
+<ul>
+<li><p>你推不上去，是因為 GitHub 有內容，本機沒有同步</p>
+</li>
+<li><p>解法是：先 pull，再 push</p>
+</li>
+<li><p>如果你想覆蓋 GitHub：git push --force</p>
+</li>
+</ul>
 <hr>
 <h2>🚀 整個流程串起來（你在 VS Code → GitHub → Vercel 的完整部署流程）</h2>
 <ol>
